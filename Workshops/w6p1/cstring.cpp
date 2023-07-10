@@ -1,13 +1,3 @@
-/*
-
-My Name: Archi Mukeshbhai Kakadiya
-Email: akakadiya1@myseneca.ca
-Student ID: 117470229
-Date: 23/05/2023
-
-*/
-
-// I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
 
 #include <iostream>
 #include "cstring.h"
