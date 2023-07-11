@@ -186,7 +186,6 @@ namespace sdds
         setEmpty();
         this->m_pageSize = file_src.m_pageSize;
 
-        // Saves the content of the incoming TextFile under the file name of the current TextFile
         if (this != &file_src)
         {
             if (file_src.m_textLines && file_src.m_noOfLines > 0)
@@ -194,6 +193,8 @@ namespace sdds
                 // Sets the file-name to the name of the incoming TextFile object
                 setFilename(file_src.m_filename, true);
 
+                //itializing the value of m_noOfLines from the file_src object to the m_noOfLines
+                //member variable of the current object (this refers to the current object).
                 this->m_noOfLines = file_src.m_noOfLines;
                 m_textLines = new Line[m_noOfLines];
 
@@ -222,6 +223,8 @@ namespace sdds
             // Saves the content of the incoming TextFile under the current filename
             if (file_src.m_textLines && file_src.m_noOfLines > 0) 
             {
+                //itializing the value of m_noOfLines from the file_src object to the m_noOfLines
+                //member variable of the current object (this refers to the current object).
                 this->m_noOfLines = file_src.m_noOfLines;
                 m_textLines = new Line[m_noOfLines];
 
@@ -311,7 +314,7 @@ namespace sdds
         istr >> input;
 
         m_filename = new char[strLen(input.c_str()) + 1];
-        //c_str() is used to convert the std::string object _input into a C-style string (const char*) 
+        //c_str() is used to convert the std::string object 'input' into a C-style string 
         //that can be used with other functions that work with C-style strings.
         strCpy(m_filename, input.c_str());
         //skip the left characters in the input until the \n
