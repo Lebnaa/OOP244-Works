@@ -6,7 +6,7 @@
 // Revision History
 // -----------------------------------------------------------
 // Name               Date                 Reason
-// 
+// Lebna            July 7th/2023       Project Completion 
 /////////////////////////////////////////////////////////////////
 #ifndef SDDS_DATE_H__
 #define SDDS_DATE_H__
@@ -49,9 +49,33 @@ namespace sdds {
         const char* dateStatus()const;  // returns a string corresponding the current status of the date
         int currentYear()const;         // returns the m_CUR_YEAR value;
 
+        // Getter for daysSince0001_1_1()
+        int getdaysSince0001_1_1() const;
+
+        // Checks whether the date is valid
+        operator bool() const;
+
+        // Function reads a date from the console in the following format YYYY/MM/DD
+        std::istream& read(std::istream& is = std::cin);
+
+        // Write the date using the ostream object
+        std::ostream& write(std::ostream& os = std::cout) const;
 
     };
+
+
     std::ostream& operator<<(std::ostream& os, const Date& RO);
     std::istream& operator>>(std::istream& is, Date& RO);
+
+    // Comparison operator overload methods
+    bool operator==(const Date& date1, const Date& date2);
+    bool operator!=(const Date& date1, const Date& date2);
+    bool operator>=(const Date& date1, const Date& date2);
+    bool operator<=(const Date& date1, const Date& date2);
+    bool operator<(const Date& date1, const Date& date2);
+    bool operator>(const Date& date1, const Date& date2);
+
+    // Overloading subtraction operator
+    int operator-(const Date& date1, const Date& date2);
 }
 #endif
