@@ -30,7 +30,7 @@ private:
 		~MenuItem();
 
 
-		//copy constructors and NO COPYING ALLOWED
+		//copy constructors but NO COPYING ALLOWED
 		MenuItem(const MenuItem& menuItem) = delete; 
 		void operator = (const MenuItem& menu_Item) = delete; 
 

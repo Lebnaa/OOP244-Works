@@ -16,6 +16,7 @@
 
 #include <iostream>
 #include "Menu.h"
+#include "Utils.h"
 #include "cstring.h"
 
 using namespace std; 
@@ -24,42 +25,42 @@ namespace sdds {
 
 	MenuItem::MenuItem()
 	{
-		setEmpty(); 
+		setEmpty();
 	}
 
 	MenuItem::MenuItem(const char* text)
 	{
 		if (text && text[0])
 		{
-			menuContent = new char[strLen(text) + 1]; 
-			strCpy(menuContent, text); 
+			menuContent = new char[strLen(text) + 1];
+			strCpy(menuContent, text);
 		}
 		else
 		{
-			setEmpty(); 
+			setEmpty();
 		}
 	}
 
 	MenuItem::~MenuItem()
 	{
-		delete[] menuContent; 
+		delete[] menuContent;
 	}
 
 	void MenuItem::setEmpty()
 	{
-		menuContent = nullptr; 
+		menuContent = nullptr;
 	}
 
 	//return true if not empty otherwise false 
 	MenuItem::operator bool() const
 	{
-		return (menuContent && menuContent[0]); 
+		return (menuContent && menuContent[0]);
 	}
 
 	//return the address of content csrting 
 	MenuItem::operator const char* () const
 	{
-		return menuContent; 
+		return menuContent;
 	}
 
 	std::ostream& MenuItem::display(std::ostream& os = std::cout)
@@ -67,20 +68,20 @@ namespace sdds {
 		//checks if the MenuItem object  true
 		if (*this)
 		{
-			os << menuContent; 
+			os << menuContent;
 		}
 
-		return os; 
+		return os;
 	}
 
 	//-----------Menu Class-------------
 
 	Menu::Menu()
 	{
-		ptrCount = 0; 
+		ptrCount = 0;
 	}
 
-	Menu::Menu(const char* title) : menutitle(title) { }; 
+	Menu::Menu(const char* title) : menutitle(title) {};    // Constructor with member initialization list
 
 	Menu::~Menu()
 	{
@@ -90,7 +91,7 @@ namespace sdds {
 			delete menuItems[i];
 		}
 
-	}; 
+	};
 
 	//displays the menus title 
 	std::ostream& Menu::displayMenuTitle(std::ostream& os)
@@ -101,9 +102,93 @@ namespace sdds {
 		}
 
 		return os;
-	}; 
+	}
 
+	//display the content 
+	std::ostream& Menu::displayMenu(std::ostream& os = std::cout)
+	{
+		if (menutitle)
+		{
+			menutitle->display();
 
+			os << ":" << std::endl;
+		}
 
+		unsigned int i;
 
-}
+		for (i = 0; i < ptrCount; i++)
+		{
+			os.width(2);
+			os.setf(std::ios::right);
+			os.fill(' ');
+			os << i + 1 << "- ";
+			os.unsetf(std::ios::right);
+			menuItems[i]->display(os);
+			os << std::endl;
+		}
+
+		os << " 0- Exit" << std::endl;
+		os << "> ";
+
+		return os;
+	}
+
+	//return the menus menuitems 
+	Menu::operator int()
+	{
+		return ptrCount;
+	}
+
+	//return the menues menuitems 
+	Menu::operator unsigned int()
+	{
+		return ptrCount;
+	}
+
+	//return true if menus has content if not false 
+	Menu::operator bool()
+	{
+		return (ptrCount > 0);
+	}
+
+	//
+	int Menu::run()
+	{
+		int input;
+		displayMenu();
+		input = getIntegerInput(0, ptrCount);
+
+		return input;
+	}
+
+	int Menu::operator~()
+	{
+		return run();
+	}
+
+	Menu& Menu::operator<<(const char* menuitemConent)
+	{
+		if (ptrCount > MAX_MENU_ITEMS)
+		{
+			MenuItem* newMenuItem = new MenuItem(menuitemConent);
+			menuItems[ptrCount] = newMenuItem;
+			ptrCount++;
+		}
+
+		return *this;
+
+	}
+
+	const char* Menu::operator[] (unsigned int index) const
+	{
+		if (index > ptrCount)
+		{
+			return menuItems[index %= ptrCount]->menuContent;
+		}
+		else
+		{
+			return menuItems[index]->menuContent;
+		}
+	}
+
+}; 
