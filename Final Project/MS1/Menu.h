@@ -48,7 +48,7 @@ private:
 
 	class Menu {
 	private :
-		MenuItem* menutitle{};
+		MenuItem menutitle{};
 		MenuItem* menuItems[MAX_MENU_ITEMS]{}; 
 		unsigned int ptrCount = 0; 
 	public:
@@ -78,7 +78,7 @@ private:
 		//display menu and gets user selection 
 		int run();
 
-		//
+		//does what we want the function to do. 
 		int operator~(); 
 
 		Menu& operator<<(const char* menuitemConent);

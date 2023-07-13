@@ -19,7 +19,6 @@
 #include "Utils.h"
 #include "cstring.h"
 
-using namespace std; 
 namespace sdds {
 	//------Menu Class---------
 
@@ -58,14 +57,15 @@ namespace sdds {
 	}
 
 	//return the address of content csrting 
-	MenuItem::operator const char* () const
+	MenuItem::operator const char*() const
 	{
 		return menuContent;
 	}
 
-	std::ostream& MenuItem::display(std::ostream& os = std::cout)
+	//display the content of menuitem with ostream 
+	std::ostream& MenuItem::display(std::ostream& os)
 	{
-		//checks if the MenuItem object  true
+		//checks if the MenuItem object true
 		if (*this)
 		{
 			os << menuContent;
@@ -81,7 +81,8 @@ namespace sdds {
 		ptrCount = 0;
 	}
 
-	Menu::Menu(const char* title) : menutitle(title) {};    // Constructor with member initialization list
+	// Constructor with member initialization list
+	Menu::Menu(const char* title) : menutitle(title) {};
 
 	Menu::~Menu()
 	{
@@ -105,11 +106,11 @@ namespace sdds {
 	}
 
 	//display the content 
-	std::ostream& Menu::displayMenu(std::ostream& os = std::cout)
+	std::ostream& Menu::displayMenu(std::ostream& os)
 	{
 		if (menutitle)
 		{
-			menutitle->display();
+			menutitle.display();
 
 			os << ":" << std::endl;
 		}
@@ -168,9 +169,12 @@ namespace sdds {
 
 	Menu& Menu::operator<<(const char* menuitemConent)
 	{
+		//checking if spot is avaliable 
 		if (ptrCount > MAX_MENU_ITEMS)
 		{
+			//allocate memory and create a new menuitem 
 			MenuItem* newMenuItem = new MenuItem(menuitemConent);
+			//sotring the address 
 			menuItems[ptrCount] = newMenuItem;
 			ptrCount++;
 		}
@@ -183,6 +187,7 @@ namespace sdds {
 	{
 		if (index > ptrCount)
 		{
+			//
 			return menuItems[index %= ptrCount]->menuContent;
 		}
 		else
