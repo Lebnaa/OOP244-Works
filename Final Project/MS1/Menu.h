@@ -34,8 +34,6 @@ private:
 		MenuItem(const MenuItem& menuItem) = delete; 
 		void operator = (const MenuItem& menu_Item) = delete; 
 
-		void setEmpty(); 
-
 		operator bool() const; 
 
 		operator const char*() const; 
@@ -67,16 +65,16 @@ private:
 		std::ostream& displayMenu(std::ostream& os = std::cout);
 
 		//reutrns the num of menuitems on menu 
-		operator int() const; 
+		operator int(); 
 
 		//Return the number of MenuItems on the Menu.
-		operator unsigned int() const; 
+		operator unsigned int(); 
 
 		//eturn true if the Menu has one or more MenuItems otherwise, false;
-		operator bool() const; 
+		operator bool(); 
 
 		//display menu and gets user selection 
-		unsigned int run();
+		int run();
 
 		//does what we want the function to do. 
 		int operator~(); 

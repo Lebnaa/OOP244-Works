@@ -1,4 +1,4 @@
-// Final Project
+// Final Project Milestone 1 
 // Menu Module
 // File	menuTester.cpp
 // Version 1.0
@@ -6,7 +6,6 @@
 // Revision History
 // -----------------------------------------------------------
 // Name               Date                 Reason
-// Lebna            July 7th/2023       Project Completion 
 /////////////////////////////////////////////////////////////////
 #include <iostream>
 #include "Menu.h"

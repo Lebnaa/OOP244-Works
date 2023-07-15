@@ -13,200 +13,164 @@
 /////////////////////////////////////////////////////////////////
 ***********************************************************************/
 #define _CRT_SECURE_NO_WARNINGS
-
-#include <iostream>
 #include "Menu.h"
 #include "Utils.h"
-#include "cstring.h"
+#include "cstring"
 
 namespace sdds {
-	//------Menu Class---------
+    // MenuItem Class
+    MenuItem::MenuItem() {
+        menuContent = nullptr;
+    }
 
-	MenuItem::MenuItem()
-	{
-		setEmpty();
-	}
+    MenuItem::MenuItem(const char* text) 
+    {
+        if (text && text[0]) {
+            menuContent = new char[strlen(text) + 1];
+            strcpy(menuContent, text);
+        }
+        else {
+            menuContent = nullptr;
+        }
+    }
 
-	MenuItem::MenuItem(const char* text)
-	{
-		if (text && text[0])
-		{
-			menuContent = new char[strLen(text) + 1];
-			strCpy(menuContent, text);
-		}
-		else
-		{
-			setEmpty();
-		}
-	}
+    MenuItem::~MenuItem() {
+        delete[] menuContent;
+    }
 
-	MenuItem::~MenuItem()
-	{
-		delete[] menuContent;
-	}
+    // Return true, if it is not empty and it should return false if it is empty
+    MenuItem::operator bool() const {
+        return (menuContent && menuContent[0]);
+    };
 
-	void MenuItem::setEmpty()
-	{
-		menuContent = nullptr;
-	}
+    // return the address of the content Cstring.
+    MenuItem::operator const char* () const {
+        return menuContent;
+    }
 
-	//return true if not empty otherwise false 
-	MenuItem::operator bool() const
-	{
-		return (menuContent != nullptr && menuContent[0] != '\0');
-	}
+    // printing the content of the MenuItem on ostream
+    std::ostream& MenuItem::display(std::ostream& os) 
+    {
+        if (*this) 
+        {
+            os << menuContent;
+        }
 
-	//return the address of content csrting 
-	MenuItem::operator const char*() const
-	{
-		return menuContent;
-	}
+        return os;
+    }
 
-	//display the content of menuitem with ostream 
-	std::ostream& MenuItem::display(std::ostream& os)
-	{
-		//checks if the MenuItem object true
-		if (*this)
-		{
-			os << menuContent;
-		}
+    // Menu Class
+    Menu::Menu() {
+        ptrCount = 0;
+    };
 
-		return os;
-	}
+    Menu::Menu(const char* title) : menutitle(title) {};
 
-	//-----------Menu Class-------------
+    Menu::~Menu() 
+    {
+        unsigned int i;
+        for (i = 0; i < MAX_MENU_ITEMS; i++)
+        {
+            delete menuItems[i];
+        }
+    };
 
-	Menu::Menu()
-	{
-		ptrCount = 0;
-		unsigned int i = 0;
-		for (i = 0; i < MAX_MENU_ITEMS; i++)
-		{
-			menuItems[i] = nullptr;
-		}
-	}; 
+    // Function to display the title of the menu
+    std::ostream& Menu::displayMenuTitle(std::ostream& os) 
+    {
+        if (menutitle) 
+        {
+            menutitle.display();
+        }
 
-	// Constructor with member initialization list
-	Menu::Menu(const char* title) : menutitle(title) {
-		unsigned int i = 0;
-		for (i = 0; i < MAX_MENU_ITEMS; i++) 
-		{
-			menuItems[i] = nullptr;
-		}
-	};
+        return os;
+    }
 
-	Menu::~Menu()
-	{
-		unsigned int i;
-		for (i = 0; i < MAX_MENU_ITEMS; i++)
-		{
-			delete menuItems[i];
-		}
+    // Display the content of Menu on ostream
+    std::ostream& Menu::displayMenu(std::ostream& os)
+    {
+        if (menutitle)
+        {
+            menutitle.display();
+            os << ":" << std::endl;
+        }
 
-	};
+        unsigned int i;
+        for (i = 0; i < ptrCount; i++)
+        {
+            os.width(2);
+            os.setf(std::ios::right);
+            os.fill(' ');
+            os << i + 1 << "- ";
+            os.unsetf(std::ios::right);
+            menuItems[i]->display(os);
+            os << std::endl;
+        }
+        os << " 0- Exit" << std::endl;
+        os << "> ";
 
-	//displays the menus title 
-	std::ostream& Menu::displayMenuTitle(std::ostream& os)
-	{
-		if (menutitle)
-		{
-			menutitle.display();
-		}
+        return os;
+    }
 
-		return os;
-	}
+    // Return the number of MenuItems on the Menu.
+    Menu::operator int() 
+    {
+        return ptrCount;
+    }
 
-	//display the content 
-	std::ostream& Menu::displayMenu(std::ostream& os)
-	{
-		menutitle.display();
-		unsigned int i = 0;
-		if (menutitle != nullptr)
-		{
-			os << ":" << std::endl;
-		}
-		
-		for (i = 0; i < ptrCount; i++)
-		{
-			os.width(2);
-			os.setf(std::ios::right);
-			os.fill(' ');
-			os << i + 1 << "- ";
-			os.unsetf(std::ios::right);
-			menuItems[i]->display(os);
-			os << std::endl;
-		}
+    Menu::operator unsigned int() 
+    {
+        return ptrCount;
+    }
 
-		os << " 0- Exit" << std::endl;
-		os << "> ";
+    // Return true if the Menu has one or more MenuItems otherwise, false;
+    Menu::operator bool() 
+    {
+        return (ptrCount > 0);
+    }
 
-		return os;
-	}
+    // Overloading  insertion operator
+    std::ostream& operator<<(std::ostream& os, Menu& menu) 
+    {
+        return (menu.displayMenuTitle(os));
+    }
 
-	//return the menus menuitems 
-	Menu::operator int() const 
-	{
-		return ptrCount;
-	}
+    // Displays the Menu and gets the user selection.
+    int Menu::run() 
+    {
+        int input = 0; //avoid negative nums
+        displayMenu();
+        input = getIntegerInput(0, ptrCount);
+        
+        return input;
+    }
 
-	//return the menues menuitems 
-	Menu::operator unsigned int() const 
-	{
-		return static_cast<unsigned int>(ptrCount);
-	}
+    int Menu::operator~() 
+    {
+        return run();
+    }
 
-	//return true if menus has content if not false 
-	Menu::operator bool() const 
-	{
-		return (ptrCount > 0);
-	}
+    Menu& Menu::operator<<(const char* menuitemContent) 
+    {
+        if (ptrCount < MAX_MENU_ITEMS)
+        {
+            MenuItem* newMenuItem = new MenuItem(menuitemContent);
+            menuItems[ptrCount] = newMenuItem;
+            ptrCount++;
+        }
 
-	//
-	unsigned int Menu::run()
-	{
-		int input = 0; //avoid negative numbers 
-		displayMenu();
-		input = getIntegerInput(0, ptrCount);
+        return *this;
+    }
 
-		return input;
-	}
-
-	int Menu::operator~()
-	{
-		return run();
-	}
-
-	Menu& Menu::operator<<(const char* menuitemConent)
-	{
-		//checking if spot is avaliable 
-		if (ptrCount <static_cast<int> (MAX_MENU_ITEMS))
-		{
-			//allocate memory and create a new menuitem 
-			MenuItem* newMenuItem = new MenuItem(menuitemConent);
-			//sotring the address 
-			menuItems[ptrCount] = newMenuItem;
-			ptrCount++;
-		}
-
-		return *this;
-
-	}
-
-	std::ostream& operator<<(std::ostream& os, Menu& menu) {
-		return (menu.displayMenuTitle(os));
-	}
-
-	const char* Menu::operator[] (unsigned int index) const
-	{
-		if (index > ptrCount)
-		{
-			//
-			return menuItems[index %= ptrCount]->menuContent;
-		}
-		else
-		{
-			return menuItems[index]->menuContent;
-		}
-	}
-
-}; 
+    const char* Menu::operator[](unsigned int index) const 
+    {
+        if (index > ptrCount)
+        {
+            return menuItems[index %= ptrCount]->menuContent;
+        }
+        else
+        {
+            return menuItems[index]->menuContent;
+        }
+    }
+};

@@ -1,10 +1,10 @@
-// Final Project
+// Final Project Milestone 1
 // Date Tester program
 // File	dateTester.cpp
 // Version 1.0
 // Author	Fardad Soleimanloo
 // Description
-// This programs test the student coding to complete of the Date class
+// This programs tests the Date class and is not for submission
 //
 // When testing before submission: DO NOT MODIFY THIS FILE IN ANY WAY
 //
@@ -12,7 +12,6 @@
 // Revision History
 // -----------------------------------------------------------
 // Name               Date                 Reason
-// Lebna            July 7th/2023       Project Completion 
 /////////////////////////////////////////////////////////////////
 
 #include <iostream>
@@ -26,7 +25,7 @@ Date getDate();
 int main() {
     Date
         D1,   // daysSince0001_1_1 to be recieved from console
-        D2(2023, 6, 26);
+        D2(2022, 6, 20);
 
     cout << "Current Date: " << D1 << endl;
     cout << D1 - D2 << " days since ms1 was published" << endl;
@@ -35,7 +34,7 @@ int main() {
         << "YYYY/MM/DD > ";
     D1 = getDate();
     cout << "Your Entry: " << D1 << endl;
-    cout << "Set by program to 2023/06/26: " << D2 << endl;
+    cout << "Set by program to 2022/6/20: " << D2 << endl;
     cout << "Days between the two dates: " << D1 - D2 << endl;
     cout << "All the following statements must be correct: " << endl;
     if (D1 > D2) {
