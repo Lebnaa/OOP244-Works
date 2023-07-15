@@ -67,16 +67,16 @@ private:
 		std::ostream& displayMenu(std::ostream& os = std::cout);
 
 		//reutrns the num of menuitems on menu 
-		operator int(); 
+		operator int() const; 
 
 		//Return the number of MenuItems on the Menu.
-		operator unsigned int(); 
+		operator unsigned int() const; 
 
 		//eturn true if the Menu has one or more MenuItems otherwise, false;
-		operator bool(); 
+		operator bool() const; 
 
 		//display menu and gets user selection 
-		int run();
+		unsigned int run();
 
 		//does what we want the function to do. 
 		int operator~(); 
@@ -87,7 +87,8 @@ private:
 		//loop back to the beginning
 		const char* operator[] (unsigned int index) const; 
 
-
 	};
+
+	std::ostream& operator<<(std::ostream& os, Menu& menu);
 }
 #endif // SDDS_UTILS_H__

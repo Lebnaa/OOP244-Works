@@ -53,7 +53,7 @@ namespace sdds {
 	//return true if not empty otherwise false 
 	MenuItem::operator bool() const
 	{
-		return (menuContent && menuContent[0]);
+		return (menuContent != nullptr && menuContent[0] != '\0');
 	}
 
 	//return the address of content csrting 
@@ -79,10 +79,21 @@ namespace sdds {
 	Menu::Menu()
 	{
 		ptrCount = 0;
-	}
+		unsigned int i = 0;
+		for (i = 0; i < MAX_MENU_ITEMS; i++)
+		{
+			menuItems[i] = nullptr;
+		}
+	}; 
 
 	// Constructor with member initialization list
-	Menu::Menu(const char* title) : menutitle(title) {};
+	Menu::Menu(const char* title) : menutitle(title) {
+		unsigned int i = 0;
+		for (i = 0; i < MAX_MENU_ITEMS; i++) 
+		{
+			menuItems[i] = nullptr;
+		}
+	};
 
 	Menu::~Menu()
 	{
@@ -108,15 +119,13 @@ namespace sdds {
 	//display the content 
 	std::ostream& Menu::displayMenu(std::ostream& os)
 	{
-		if (menutitle)
+		menutitle.display();
+		unsigned int i = 0;
+		if (menutitle != nullptr)
 		{
-			menutitle.display();
-
 			os << ":" << std::endl;
 		}
-
-		unsigned int i;
-
+		
 		for (i = 0; i < ptrCount; i++)
 		{
 			os.width(2);
@@ -135,27 +144,27 @@ namespace sdds {
 	}
 
 	//return the menus menuitems 
-	Menu::operator int()
+	Menu::operator int() const 
 	{
 		return ptrCount;
 	}
 
 	//return the menues menuitems 
-	Menu::operator unsigned int()
+	Menu::operator unsigned int() const 
 	{
-		return ptrCount;
+		return static_cast<unsigned int>(ptrCount);
 	}
 
 	//return true if menus has content if not false 
-	Menu::operator bool()
+	Menu::operator bool() const 
 	{
 		return (ptrCount > 0);
 	}
 
 	//
-	int Menu::run()
+	unsigned int Menu::run()
 	{
-		int input;
+		int input = 0; //avoid negative numbers 
 		displayMenu();
 		input = getIntegerInput(0, ptrCount);
 
@@ -170,7 +179,7 @@ namespace sdds {
 	Menu& Menu::operator<<(const char* menuitemConent)
 	{
 		//checking if spot is avaliable 
-		if (ptrCount > MAX_MENU_ITEMS)
+		if (ptrCount <static_cast<int> (MAX_MENU_ITEMS))
 		{
 			//allocate memory and create a new menuitem 
 			MenuItem* newMenuItem = new MenuItem(menuitemConent);
@@ -181,6 +190,10 @@ namespace sdds {
 
 		return *this;
 
+	}
+
+	std::ostream& operator<<(std::ostream& os, Menu& menu) {
+		return (menu.displayMenuTitle(os));
 	}
 
 	const char* Menu::operator[] (unsigned int index) const
