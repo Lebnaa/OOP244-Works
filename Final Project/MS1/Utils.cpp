@@ -27,7 +27,7 @@ namespace sdds {
 			cin >> input; 
 			if (!cin || input < minRange || input > maxRange)
 			{
-				std::cout << "Invalid Selection, Please Try Again: "; 
+				std::cout << "Invalid Selection, try again: "; 
 				cin.clear(); 
 				cin.ignore(1000, '\n'); 
 				validInt = false; 
