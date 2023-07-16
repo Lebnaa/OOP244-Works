@@ -1,12 +1,11 @@
-// Final Project Milestone 1 
+// Final Project Milestone 1
 // Date Module
-// File	Date.cpp
+// File  Date.cpp
 // Version 1.0
-// Author	Fardad Soleimanloo
+// Author   Fardad Soleimanloo
 // Revision History
 // -----------------------------------------------------------
 // Name               Date                 Reason
-// Lebna            July 7th/2023       Project Completion 
 /////////////////////////////////////////////////////////////////
 #define _CRT_SECURE_NO_WARNINGS
 #include <iomanip>

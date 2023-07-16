@@ -19,7 +19,8 @@
 
 namespace sdds {
     // MenuItem Class
-    MenuItem::MenuItem() {
+    MenuItem::MenuItem() 
+    {
         menuContent = nullptr;
     }
 
