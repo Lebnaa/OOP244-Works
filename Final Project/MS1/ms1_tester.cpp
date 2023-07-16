@@ -1,6 +1,5 @@
 // Final Project Milestone 1 
 // Date and Menu Modules
-// File	ms1.cpp
 // Version 1.0
 // Author	Fardad Soleimanloo
 // Revision History
@@ -10,20 +9,13 @@
 #include <iostream>
 #include "Date.h"
 #include "Menu.h"
+#include "Utils.h"
 
 //Please use putty for termial client on Matrix (https://www.putty.org/)
+//#define SDDS_LINUX  // Comment this to run on windows, 
+                      // Uncommnet the above line to run on linux
 
-#ifdef _MSC_VER  // Windows Console Colors
-const char col_grey[] = "\033[38;5;8m";
-const char col_red[] = "\033[38;5;9m";
-const char col_green[] = "\033[38;5;10m";
-const char col_yellow[] = "\033[38;5;11m";
-const char col_blue[] = "\033[38;5;12m";
-const char col_pink[] = "\033[38;5;13m";
-const char col_cyan[] = "\033[38;5;14m";
-const char col_white[] = "\033[38;5;15m";
-const char col_end[] = "\033[0m";
-#else // Linux or Mac Console Colors
+#ifdef SDDS_LINUX  // Linux or Mac Console Colors
 const char col_grey[] = "\e[38;5;8m";
 const char col_red[] = "\e[38;5;9m";
 const char col_green[] = "\e[38;5;10m";
@@ -33,6 +25,16 @@ const char col_pink[] = "\e[38;5;13m";
 const char col_cyan[] = "\e[38;5;14m";
 const char col_white[] = "\e[38;5;15m";
 const char col_end[] = "\e[0m";
+#else  // Windows Console Colors
+const char col_grey[] = "\033[38;5;8m";
+const char col_red[] = "\033[38;5;9m";
+const char col_green[] = "\033[38;5;10m";
+const char col_yellow[] = "\033[38;5;11m";
+const char col_blue[] = "\033[38;5;12m";
+const char col_pink[] = "\033[38;5;13m";
+const char col_cyan[] = "\033[38;5;14m";
+const char col_white[] = "\033[38;5;15m";
+const char col_end[] = "\033[0m";
 #endif
 
 
@@ -121,7 +123,7 @@ void showOrder(const unsigned int* cnt, const Menu& M) {
 void dateTester() {
     Date
         D1,   // daysSince0001_1_1 to be recieved from console
-        D2(2022, 6, 20);
+        D2(2023, 6, 26);
 
     cout << D1 - D2 << " days since ms1 was published" << endl;
     cout << "Current Date: " << D1 << endl;
@@ -131,7 +133,7 @@ void dateTester() {
     cout << "Enter " << col_pink << "1000/1/1: " << col_end;
     cin >> D1;
     cout << D1 << endl;
-    cout << "Enter " << col_pink << "2024/1/1: " << col_end;
+    cout << "Enter " << col_pink << "2025/1/1: " << col_end;
     cin >> D1;
     cout << D1 << endl;
     cout << "Enter " << col_pink << "2000/13/1: " << col_end;
@@ -141,14 +143,14 @@ void dateTester() {
     cin >> D1;
     cout << D1 << endl;
     hr();
-    D1 = Date(2022, 6, 20);
-    D2 = Date(2022, 6, 20);
+    D1 = Date(2023, 6, 26);
+    D2 = Date(2023, 6, 26);
     dateOperatorTester(D2, D1);
     hr();
-    D2 = Date(2021, 6, 20);
+    D2 = Date(2022, 6, 26);
     dateOperatorTester(D2, D1);
     hr();
-    D2 = Date(2023, 6, 20);
+    D2 = Date(2024, 6, 26);
     dateOperatorTester(D2, D1);
     hr();
 }
@@ -157,7 +159,7 @@ Date getDate() {
     Date D;
     do {
         cin >> D;      // get D from console
-    } while (!D && cout << D.dateStatus() << ", try again > ");  // if D is invalid, print error message and loop
+    } while (!D && cout << D.dateStatus() << ", Please try again > ");  // if D is invalid, print error message and loop
     return D;
 }
 void dateOperatorTester(const Date& A, const Date& B) {

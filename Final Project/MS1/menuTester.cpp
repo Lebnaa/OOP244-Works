@@ -1,8 +1,8 @@
-// Final Project Milestone 1 
+// Final Project
 // Menu Module
 // File	menuTester.cpp
 // Version 1.0
-// Author	Fardad 
+// Author	Fardad Soleimanloo
 // Revision History
 // -----------------------------------------------------------
 // Name               Date                 Reason
