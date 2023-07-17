@@ -19,7 +19,7 @@
 #include "MotorVehicle.h" // intentional
 
 using namespace std;
-using namespace sdds;
+using namespace sdds; 
 
 void printHeader(const char* title)
 {

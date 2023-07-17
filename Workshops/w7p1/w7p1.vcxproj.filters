@@ -15,27 +15,27 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MotorVehicle .cpp">
+    <ClCompile Include="MotorVehicle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Truck .cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\OOP244-Works\Workshops\w6p1\cstring.cpp">
+    <ClCompile Include="Truck.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="cstring.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MotorVehicle .h">
+    <ClInclude Include="MotorVehicle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Truck .h">
+    <ClInclude Include="Truck.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\OOP244-Works\Workshops\w6p1\cstring.h">
+    <ClInclude Include="cstring.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
