@@ -93,7 +93,7 @@ namespace sdds {
         if (menutitle)
         {
             menutitle.display();
-            os << ":" << std::endl;
+            //os << ":" << std::endl;
         }
 
         unsigned int i;

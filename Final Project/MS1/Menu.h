@@ -1,17 +1,16 @@
-/***********************************************************************
-// OOP244 Utils Module
-// File	Utils.cpp
-// Version 1.0
-// Date		July 7th/2023
-// Author	Lebna Noori
-// Description   Completing Utils.cpp
-//
-// Revision History
-// -----------------------------------------------------------
-// Name            Date            Reason
-// Lebna            July 7th/2023       Project Completion
-/////////////////////////////////////////////////////////////////
-***********************************************************************/
+/*
+*****************************************************************************
+							 MS2
+Full Name  : Lebna Noori
+Student ID#: 157672205
+Email      : lnoori1@myseneca.ca
+Section    : NAA
+
+Authenticity Declaration:
+I declare this submission is the result of my own work and has not been
+shared with any other student or 3rd party content provider. This submitted
+piece of work is entirely of my own creation.
+*****************************************************************************/
 #ifndef SDDS_MENU_H__
 #define SDDS_MENU_H__
 
