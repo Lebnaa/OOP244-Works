@@ -131,7 +131,7 @@ namespace sdds {
 					case 0: 
 						if (confirm("This will discard all the changes are you sure?\n"))
 						{
-							m_changed;
+							m_changed = false;
 						}
 						break;
 					case 1:
