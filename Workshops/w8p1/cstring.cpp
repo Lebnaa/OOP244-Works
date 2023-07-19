@@ -1,6 +1,6 @@
 /*
 *****************************************************************************
-							  Workshop - #6 (Part-1)
+							 Workshop 8
 Full Name  : Lebna Noori
 Student ID#: 157672205
 Email      : lnoori1@myseneca.ca
