@@ -19,20 +19,10 @@
 
 namespace sdds {
     // MenuItem Class
-    MenuItem::MenuItem() 
-    {
-        menuContent = nullptr;
-    }
 
     MenuItem::MenuItem(const char* text) 
     {
-        if (text && text[0]) {
-            menuContent = new char[strlen(text) + 1];
-            strcpy(menuContent, text);
-        }
-        else {
-            menuContent = nullptr;
-        }
+       alloCopy( menuContent, text );
     }
 
     MenuItem::~MenuItem() {
@@ -61,11 +51,8 @@ namespace sdds {
     }
 
     // Menu Class
-    Menu::Menu() {
-        ptrCount = 0;
-    };
 
-    Menu::Menu(const char* title) : menutitle(title) {};
+    Menu::Menu( const char* title ) : menutitle{ title } { };
 
     Menu::~Menu() 
     {
@@ -90,13 +77,8 @@ namespace sdds {
     // Display the content of Menu on ostream
     std::ostream& Menu::displayMenu(std::ostream& os)
     {
-        if (menutitle)
-        {
-            menutitle.display();
-            //os << ":" << std::endl;
-        }
-
         unsigned int i;
+        displayMenuTitle( os );
         for (i = 0; i < ptrCount; i++)
         {
             os.width(2);
@@ -114,18 +96,18 @@ namespace sdds {
     }
 
     // Return the number of MenuItems on the Menu.
-    Menu::operator int() 
+    Menu::operator int()const 
     {
         return ptrCount;
     }
 
-    Menu::operator unsigned int() 
+    Menu::operator unsigned int()const 
     {
         return ptrCount;
     }
 
     // Return true if the Menu has one or more MenuItems otherwise, false;
-    Menu::operator bool() 
+    Menu::operator bool() const 
     {
         return (ptrCount > 0);
     }
@@ -165,13 +147,6 @@ namespace sdds {
 
     const char* Menu::operator[](unsigned int index) const 
     {
-        if (index > ptrCount)
-        {
-            return menuItems[index %= ptrCount]->menuContent;
-        }
-        else
-        {
-            return menuItems[index]->menuContent;
-        }
+        return menuItems[index % ptrCount]->menuContent;
     }
 };

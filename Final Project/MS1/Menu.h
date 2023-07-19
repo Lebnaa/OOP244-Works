@@ -17,6 +17,7 @@ piece of work is entirely of my own creation.
 #define MAX_MENU_ITEMS 20 
 
 #include <iostream>
+#include "Utils.h"
 
 namespace sdds {
 
@@ -24,7 +25,7 @@ namespace sdds {
 private: 
 		char* menuContent{};
 
-		MenuItem(); 
+		MenuItem( ) = default;
 		MenuItem(const char* text); 
 		~MenuItem();
 
@@ -47,9 +48,9 @@ private:
 	private :
 		MenuItem menutitle{};
 		MenuItem* menuItems[MAX_MENU_ITEMS]{}; 
-		unsigned int ptrCount = 0; 
+		unsigned int ptrCount{};
 	public:
-		Menu(); 
+		Menu() = default; 
 		Menu(const char* title); 
 		~Menu(); 
 
@@ -64,13 +65,13 @@ private:
 		std::ostream& displayMenu(std::ostream& os = std::cout);
 
 		//reutrns the num of menuitems on menu 
-		operator int(); 
+		operator int()const; 
 
 		//Return the number of MenuItems on the Menu.
-		operator unsigned int(); 
+		operator unsigned int()const; 
 
 		//eturn true if the Menu has one or more MenuItems otherwise, false;
-		operator bool(); 
+		operator bool()const; 
 
 		//display menu and gets user selection 
 		int run();
