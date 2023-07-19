@@ -24,9 +24,9 @@ namespace sdds
 		unsigned int m_width{ 0 }; 
 		unsigned int m_height{ 0 }; 
 	public:
-		Rectangle(); 
+		Rectangle() {};
 		Rectangle(int width, int height, const char* label); 
-		virtual ~Rectangle(); 
+		virtual ~Rectangle() {};
 
 		void getSpecs(std::istream& is);
 		
