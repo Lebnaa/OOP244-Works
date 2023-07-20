@@ -33,8 +33,8 @@ namespace sdds {
 
 	};
 
-	std::ostream& operator >> (std::ostream& os, const Streamable& s); 
-	std::istream& operator <<(std::istream& is, Streamable& s); 
+	std::ostream& operator>>(std::ostream& os, const Streamable& s); 
+	std::istream& operator<<(std::istream& is, Streamable& s); 
 
 }
 #endif // !SDDS_STREAMABLE_H

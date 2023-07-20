@@ -5,25 +5,30 @@ Student ID# : 157672205
 Email : lnoori1@myseneca.ca
 Date of completion : 18 July 2023
 
-I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.*/
+I have done all the coding by myself and only copied the code that my 
+professor provided to complete my workshops and assignments.*/
 
 #include <iostream>
 #include "Publication.h"
 #include "Lib.h"
-#include "cstring.h"
+#include "Utils.h"
 
 using namespace std; 
 
 namespace sdds
 {
+	Publication::Publication()
+	{
+		setEmpty();
+	}
 	void Publication::setRef(int value)
 	{
-		m_libRef = value; 
+		m_libRef = value;
 	}
 
 	void Publication::resetDate()
 	{
-		m_date = Date(); 
+		m_date = Date();
 	}
 
 	void Publication::setEmpty()
@@ -35,55 +40,61 @@ namespace sdds
 		resetDate();
 	}
 
+	//Returns the character 'P' to identify this object as a "Publication object
+	char Publication::type()const
+	{
+		return 'P';
+	}
+
 	bool Publication::onLoan()const
 	{
-		bool result = false; 
+		bool result = false;
 
 		if (m_membership != 0)
 		{
-			result = true; 
+			result = true;
 		}
 
-		return result; 
+		return result;
 	}
 
 	Date Publication::checkoutDate()const
 	{
-		return m_date; 
+		return m_date;
 	}
 
 	bool Publication::operator==(const char* title)const
 	{
-		return strStr(m_title, title) != nullptr; 
+		return strStr(m_title, title) != nullptr;
 	}
 
-	Publication::operator const char* ()const
+	Publication::operator const char* () const
 	{
-		return m_title; 
+		return m_title;
 	}
 
 	int Publication::getRef()const
 	{
-		return m_libRef; 
+		return m_libRef;
 	}
 
 	bool Publication::conIO(std::ios& io)const
 	{
-		bool result; 
+		bool result;
 
 		if (&io == &cin || &io == &cout)
 		{
-			result = true; 
+			result = true;
 		}
 
-		return result; 
+		return result;
 	}
 
 	std::ostream& Publication::write(std::ostream& os) const
 	{
 		if (conIO(os))
 		{
-			os << "|" << m_shelfId << "|" << cout.width(30) << left << cout.fill('.') << m_title << "|"; 
+			os << "|" << m_shelfId << "|" << cout.width(30) << left << cout.fill('.') << m_title << "|";
 
 			if (m_membership != 0)
 			{
@@ -110,7 +121,7 @@ namespace sdds
 			}
 			os << "\t" << m_date;
 		}
-		return os; 
+		return os;
 	}
 
 	std::istream& Publication::read(std::istream& istr)
@@ -195,3 +206,4 @@ namespace sdds
 
 		return result;
 	}
+}

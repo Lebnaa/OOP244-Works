@@ -14,10 +14,11 @@ I have done all the coding by myself and only copied the code that my professor 
 
 #include "Date.h"
 #include "Streamable.h"
+#include "Lib.h"
 
 
 namespace sdds {
-	class Publication : public Streamable 
+	class Publication : public Streamable
 	{
 	private: 
 		char* m_title{};
@@ -26,7 +27,7 @@ namespace sdds {
 		int m_libRef{ -1 };
 		Date m_date; 
 	public :
-		Publication() { setEmpty }; 
+		Publication(); 
 		~Publication() {}; 
 
 		virtual void set(int member_id);
@@ -63,7 +64,6 @@ namespace sdds {
 
 		//Returns true if neither of the title or shelfId attributes is null. Otherwise  false.
 		operator bool() const; 
-
 	};
 }
 #endif // !SDDS_PUBLICATION_H

@@ -11,9 +11,8 @@
 #include <iomanip>
 #include <iostream>
 #include <ctime>
-#include "Date.h"
 using namespace std;
-
+#include "Date.h"
 namespace sdds
 {
 
@@ -22,11 +21,10 @@ namespace sdds
     int sdds_mon = 12;
     int sdds_day = 25;
 
-
     bool Date::validate()
     {
         errCode(NO_ERROR);
-        if (m_year < MIN_YEAR || m_year > m_CUR_YEAR + 1)
+        if (m_year < MIN_YEAR || m_year > m_CurYear + 1)
         {
             errCode(YEAR_ERROR);
         }
@@ -52,8 +50,7 @@ namespace sdds
     int Date::systemYear()const 
     {
         int theYear = sdds_year;
-        if (!sdds_test) 
-        {
+        if (!sdds_test) {
             time_t t = time(NULL);
             tm lt = *localtime(&t);
             theYear = lt.tm_year + 1900;
@@ -61,17 +58,14 @@ namespace sdds
         return theYear;
     }
 
-
     void Date::setToToday() 
     {
-        if (sdds_test) 
-        {
+        if (sdds_test) {
             m_day = sdds_day;
             m_mon = sdds_mon;
             m_year = sdds_year;
         }
-        else 
-        {
+        else {
             time_t t = time(NULL);
             tm lt = *localtime(&t);
             m_day = lt.tm_mday;
@@ -93,12 +87,12 @@ namespace sdds
         return 365 * ty + ty / 4 - ty / 100 + ty / 400 + (153 * tm - 457) / 5 + m_day - 306;
     }
 
-    Date::Date() : m_CUR_YEAR(systemYear())
+    Date::Date() : m_CurYear{ systemYear() }
     {
         setToToday();
     }
 
-    Date::Date(int year, int mon, int day) : m_CUR_YEAR(systemYear())
+    Date::Date(int year, int mon, int day) : m_CurYear{ systemYear() }
     {
         m_year = year;
         m_mon = mon;
@@ -113,7 +107,7 @@ namespace sdds
 
     int Date::currentYear() const
     {
-        return m_CUR_YEAR;
+        return m_CurYear;
     }
 
     void Date::errCode(int readErrorCode)
@@ -149,7 +143,7 @@ namespace sdds
         if (!is)
         {
             is.clear();
-           // is.ignore(1000, '\n');
+            //is.ignore(100000, '\n');
             errCode(CIN_FAILED);
         }
         // If not, it will validate the values entered.

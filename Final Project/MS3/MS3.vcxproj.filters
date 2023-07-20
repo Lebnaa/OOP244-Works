@@ -18,29 +18,20 @@
     <ClCompile Include="Date.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Utils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\School Projects\OOP244\OOP244-Works\Final Project\MS1\dateTester.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Publication.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Streamable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="cstring.cpp">
+    <ClCompile Include="ms3_tester.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ms3_tester.cpp">
+    <ClCompile Include="..\..\..\..\..\Utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Date.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -53,7 +44,7 @@
     <ClInclude Include="Publication.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="cstring.h">
+    <ClInclude Include="Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

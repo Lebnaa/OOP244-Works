@@ -16,7 +16,7 @@ namespace sdds
 	//setting the contructor to defult 
 	Streamable::~Streamable() {}; 
 
-	std::ostream& operator >> (std::ostream& os, const Streamable& s) 
+	std::ostream& operator>>(std::ostream& os, const Streamable& s) 
 	{
 		//Streamable can be written on an ostream object only if the Streamable object is in a valid state
 		//other wise ignore insertation 
@@ -28,7 +28,7 @@ namespace sdds
 		return os; 
 	}
 
-	std::istream& operator <<(std::istream& is, Streamable& s) 
+	std::istream& operator<<(std::istream& is, Streamable& s) 
 	{
 		return (s.read(is)); 
 	}

@@ -15,7 +15,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "Menu.h"
 #include "Utils.h"
-#include "cstring"
 
 namespace sdds {
     // MenuItem Class
@@ -66,11 +65,10 @@ namespace sdds {
     // Function to display the title of the menu
     std::ostream& Menu::displayMenuTitle(std::ostream& os) 
     {
-        if (menutitle) 
+        if (menutitle)
         {
             menutitle.display();
         }
-
         return os;
     }
 
@@ -78,7 +76,11 @@ namespace sdds {
     std::ostream& Menu::displayMenu(std::ostream& os)
     {
         unsigned int i;
-        displayMenuTitle( os );
+         if (menutitle)
+        {
+            menutitle.display();
+            os << ":" << std::endl;
+        }
         for (i = 0; i < ptrCount; i++)
         {
             os.width(2);
