@@ -14,12 +14,14 @@ piece of work is entirely of my own creation.
 #include <iostream> 
 #include <string>
 #include "LblShape.h"
-#include "cstring.h"
+//#include "cstring.h"
 
 using namespace std; 
 
 namespace sdds
 {
+	//Allocates memory large enough to hold the incoming 
+	//Cstring argument pointed by the m_label member variable
 	LblShape::LblShape(const char* label)
 	{
 		if (label && m_label[0] != '\0')
@@ -29,6 +31,7 @@ namespace sdds
 		}
 	}
 
+	//returns the unmodifiable value of m_label member variabl
 	const char* LblShape::label()const
 	{
 		return m_label; 
@@ -40,6 +43,7 @@ namespace sdds
 		m_label = nullptr; 
 	}
 
+	//Override the Shape::getSpecs pure virtual function to receive a Cstring from istream up to the ','
 	void LblShape::getSpecs(std::istream& is)
 	{
 		string label; 

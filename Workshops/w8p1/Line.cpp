@@ -29,6 +29,7 @@ namespace sdds
 		}
 	}
 
+	//
 	void Line::getSpecs(std::istream& istrm)
 	{
 		int length;
