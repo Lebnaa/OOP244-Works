@@ -21,10 +21,10 @@ namespace sdds
 {
 	class Rectangle : LblShape
 	{
-		unsigned int m_width{ 0 }; 
-		unsigned int m_height{ 0 }; 
+		size_t m_width{ 0 }; 
+		size_t m_height{ 0 }; 
 	public:
-		Rectangle() {};
+		Rectangle() = default;
 		Rectangle(int width, int height, const char* label); 
 		virtual ~Rectangle() {};
 

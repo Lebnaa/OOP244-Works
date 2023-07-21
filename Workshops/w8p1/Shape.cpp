@@ -25,7 +25,7 @@ namespace sdds
     }
 
     //Returns void and receives a reference to istream as an argument.
-    std::istream& operator>>(std::istream& is, Shape& shape)
+    std::istream& operator >> (std::istream& is, Shape& shape)
     {
         shape.getSpecs(is);
 

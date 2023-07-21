@@ -12,7 +12,7 @@ shared with any other student or 3rd party content provider. This submitted
 piece of work is entirely of my own creation.
 *****************************************************************************/
 #include <iostream>
-#include "cstring.h"
+#include "Utils.h"
 #include "Rectangle.h"
 
 using namespace std; 
@@ -21,6 +21,7 @@ namespace sdds
 {
     Rectangle::Rectangle(int width, int height, const char* label)
     {
+        //calcultaed based on the length of the label of the LblShape class.
         int compareWidth = strLen(LblShape::label()) + 2;
 
         // if not meet the condition, rectangle will be set to empty
@@ -35,8 +36,7 @@ namespace sdds
     {
         int height, width;
         char comma;
-        bool result;
-
+        bool result = false; 
         do
         {
             //reads label with base class's getspecs 
@@ -44,10 +44,11 @@ namespace sdds
 
             is >> width >> comma >> height;
 
+            //if is failed or any error causesd
             if (!is)
             {
                 is.clear();
-                is.ignore(2000, '\n');
+                is.ignore(1000, '\n');
             }
             else
             {
@@ -62,8 +63,9 @@ namespace sdds
 
     void Rectangle::draw(std::ostream& os) const
     {
-        if (m_width > 0 && m_height > 00)
+        if (m_width > 0 && m_height > 0)
         {
+            // draw  label and symbol as the provided format
             os << '+';
             os.width(m_width - 2);
             os.fill('-');

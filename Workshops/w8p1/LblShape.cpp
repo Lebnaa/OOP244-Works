@@ -14,25 +14,23 @@ piece of work is entirely of my own creation.
 #include <iostream> 
 #include <string>
 #include "LblShape.h"
+#include "Utils.h"
 //#include "cstring.h"
 
 using namespace std; 
 
 namespace sdds
 {
-	//Allocates memory large enough to hold the incoming 
+	//Allocates memory large enough to hold the 
 	//Cstring argument pointed by the m_label member variable
 	LblShape::LblShape(const char* label)
 	{
-		if (label && m_label[0] != '\0')
-		{
-			m_label = new char(strLen(label) + 1);
-			strCpy(m_label, label); 
-		}
+
+		alloCopy(m_label, label); 
 	}
 
-	//returns the unmodifiable value of m_label member variabl
-	const char* LblShape::label()const
+	//returns const value of m_label member variabl
+	const char* LblShape::label() const
 	{
 		return m_label; 
 	}
@@ -43,7 +41,7 @@ namespace sdds
 		m_label = nullptr; 
 	}
 
-	//Override the Shape::getSpecs pure virtual function to receive a Cstring from istream up to the ','
+	//Override the Shape::getSpecs func to receive a Cstring from istream up to the ','
 	void LblShape::getSpecs(std::istream& is)
 	{
 		string label; 
@@ -51,11 +49,8 @@ namespace sdds
 		//reads untill a ,
 		getline(is, label, ',');
 
-		delete[] m_label; 
-		//c_str converts a string
-		m_label = new char(strLen(label.c_str()) + 1); 
-		strCpy(m_label, label.c_str()); 
-
+		//c_str converts a string into int 
+		alloCopy(m_label, label.c_str()); 
 	}
 
 }

@@ -13,7 +13,7 @@ piece of work is entirely of my own creation.
 *****************************************************************************/
 #include <iostream>
 #include "Line.h"
-#include "cstring.h"
+#include "Utils.h"
 
 using namespace std; 
 
@@ -23,10 +23,7 @@ namespace sdds
 	//LblShape and passes label to the base class constructor.
 	Line::Line(const char* label, int length) : LblShape(label)
 	{
-		if (length > 0)
-		{
-			m_length = length;
-		}
+		if (length > 0) m_length = length;
 	}
 
 	//
@@ -36,11 +33,12 @@ namespace sdds
 		bool result = false; 
 
 		do {
-			//read label using base class getspecs 
+			//read label using base class's getspecs 
 			LblShape::getSpecs(istrm); 
 			 
 			istrm >> length;
 
+			//if in failed state
 			if (!istrm)
 			{
 				istrm.clear(); 
@@ -48,7 +46,7 @@ namespace sdds
 			}
 			else
 			{
-				//ignore The rest of the characters up to and including '\n'
+				//ignore The rest of the characters up to '\0'
 				istrm.ignore(); 
 				m_length = length; 
 				result = true; 
@@ -58,11 +56,12 @@ namespace sdds
 
 	void Line::draw(std::ostream& os) const
 	{
-		if (m_length > 0 && LblShape::label() != '\0')
+		if (m_length > 0 && LblShape::label())
 		{
+			//draw label and symbol as the provided format
 			os << LblShape::label() << endl; 
 			os.width(m_length); 
-			os.fill(' = ');
+			os.fill( '=');
 			os << "="; 
 		}
 	}

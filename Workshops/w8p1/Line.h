@@ -22,7 +22,7 @@ namespace sdds
 	{
 		unsigned int m_length{ 0 };
 	public:
-		Line() {};
+		Line() = default;
 		Line(const char* label, int length); 
 		virtual ~Line() {};
 

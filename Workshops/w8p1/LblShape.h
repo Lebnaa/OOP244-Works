@@ -23,18 +23,21 @@ namespace sdds
 	{
 		char* m_label{};
 	protected:
-		const char* label()const; 
+		//returns the unmodifiable value of m_label member variabl
+		const char* label() const; 
 	public:
-		LblShape() {}; 
+		LblShape() = default; 
+		//Allocates memory large enough to hold the incoming 
+		//Cstring argument pointed by the m_label member variable
 		LblShape(const char* label); 
-		virtual ~LblShape(); 
+		virtual ~LblShape();
 
 		//to not copy 
 		LblShape(const LblShape& src) = delete; 
 		LblShape& operator=(const LblShape& src) = delete; 
 
 		//Override the Shape::getSpecs pure virtual function to receive a Cstring (a label) from istream
-		void getSpecs(std::istream& is);
+		void getSpecs(std::istream& is) override;
 
 	};
 }
