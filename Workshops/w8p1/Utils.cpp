@@ -41,13 +41,16 @@ namespace sdds {
 		return input;
 	}
 
-	bool alloCopy(char*& des, const char* str) {
-		delete[] des;
-		if (str && str[0]) {
+	bool alloCopy(char*& des, const char* str)
+	{
+		if (str && str[0])
+		{
 			des = new char[strLen(str) + 1];
 			strCpy(des, str);
 		}
 		return str && str[0];
+
+		delete[] des;
 	}
 
 	void strCpy(char* des, const char* src) {
@@ -88,9 +91,10 @@ namespace sdds {
 		return result;
 	}
 
-	int strLen(const char* s) {
-		int i;
-		for (i = 0; s[i] != 0; i++)
+	int strLen(const char* s)
+	{
+		int i = 0;
+		for (i = 0; s[i] != 0; i++);
 		return i;
 	}
 
