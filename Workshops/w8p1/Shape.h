@@ -22,7 +22,9 @@ namespace sdds
 	{
 		public:
 		virtual ~Shape() {};
+		//Returns void and receives a reference to ostream as an argument.
 		virtual void draw(std::ostream& os) const = 0; 
+		//Returns void and receives a reference to istream as an argument.
 		virtual void getSpecs(std::istream& is) = 0; 
 	};
 

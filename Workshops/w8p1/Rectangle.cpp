@@ -19,7 +19,7 @@ using namespace std;
 
 namespace sdds
 {
-    Rectangle::Rectangle(int width, int height, const char* label)
+    Rectangle::Rectangle(const char* label, int width, int height)
     {
         //calcultaed based on the length of the label of the LblShape class.
         int compareWidth = strLen(LblShape::label()) + 2;
@@ -42,6 +42,7 @@ namespace sdds
             //reads label with base class's getspecs 
             LblShape::getSpecs(is);
 
+            //read the value of the m_width and the comma and the value of the m_height
             is >> width >> comma >> height;
 
             //if is failed or any error causesd

@@ -26,7 +26,8 @@ namespace sdds
 		if (length > 0) m_length = length;
 	}
 
-	//
+	//Reads comma-separated specs of the Line from istream.
+	// Override the base class's getSpecs virtual function
 	void Line::getSpecs(std::istream& istrm)
 	{
 		int length;
@@ -36,9 +37,10 @@ namespace sdds
 			//read label using base class's getspecs 
 			LblShape::getSpecs(istrm); 
 			 
+			// read the value of the m_length
 			istrm >> length;
 
-			//if in failed state
+			//if  failed
 			if (!istrm)
 			{
 				istrm.clear(); 

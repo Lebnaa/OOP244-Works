@@ -18,15 +18,16 @@ piece of work is entirely of my own creation.
 
 namespace sdds
 {
-	class Line : LblShape
+	class Line : public LblShape
 	{
-		unsigned int m_length{ 0 };
+		size_t m_length{ 0 };
 	public:
 		Line() = default;
 		Line(const char* label, int length); 
-		virtual ~Line() {};
+		virtual ~Line() {}; 
 
 		//Reads comma-separated specs of the Line from istream.
+		// Override the base class's getSpecs virtual function
 		void getSpecs(std::istream& istrm); 
 
 		//This function overrides the draw function of the base class.

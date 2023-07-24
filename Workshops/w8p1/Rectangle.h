@@ -19,17 +19,22 @@ piece of work is entirely of my own creation.
 
 namespace sdds
 {
-	class Rectangle : LblShape
+	class Rectangle : public LblShape
 	{
 		size_t m_width{ 0 }; 
 		size_t m_height{ 0 }; 
 	public:
-		Rectangle() = default;
-		Rectangle(int width, int height, const char* label); 
+		Rectangle() = default; 
+		Rectangle(const char* label, int width, int height);
 		virtual ~Rectangle() {};
 
+		//Reads comma-separated specs of the Rectangle from istream.
+		//This function overrides the getSpecs function of the base class.
 		void getSpecs(std::istream& is);
 		
+		
+		//Returns void and receives a reference to ostream as an argument.
+		//This function overrides the getSpecs function of the base class.
 		void draw(std::ostream& os) const; 
 	};
 }
