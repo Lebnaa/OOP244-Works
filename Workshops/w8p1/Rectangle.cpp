@@ -33,6 +33,9 @@ namespace sdds
         }
     }
 
+
+    //Reads comma-separated specs of the Rectangle from istream.
+    //This function overrides the getSpecs function of the base class.
     void Rectangle::getSpecs(std::istream& istr)
     {
         int width, height;
@@ -60,6 +63,8 @@ namespace sdds
         } while (!result);
     }
 
+    //Returns void and receives a reference to ostream as an argument.
+    //This function overrides the getSpecs function of the base class.
     void Rectangle::draw(std::ostream& os) const
     {
         if (m_width > 0 && m_height >> 0) 
