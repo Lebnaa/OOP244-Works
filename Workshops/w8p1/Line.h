@@ -28,7 +28,7 @@ namespace sdds
 
 		//Reads comma-separated specs of the Line from istream.
 		// Override the base class's getSpecs virtual function
-		void getSpecs(std::istream& istrm); 
+		void getSpecs(std::istream& is); 
 
 		//This function overrides the draw function of the base class.
 		void draw(std::ostream& os) const; 

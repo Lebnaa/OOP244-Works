@@ -19,52 +19,49 @@ using namespace std;
 
 namespace sdds 
 {
-	// initializes the Line by calling the constructor of the base class
-	//LblShape and passes label to the base class constructor.
-	Line::Line(const char* label, int length) : LblShape(label)
-	{
-		if (length > 0) m_length = length;
-	}
+    // initializes the Line by calling the constructor of the base class
+    //LblShape and passes label to the base class constructor.
+    Line::Line(const char* label, int length) : LblShape(label)
+    {
+        if (length > 0)  m_length = length;
+    }
 
-	//Reads comma-separated specs of the Line from istream.
+    ////Reads comma-separated specs of the Line from istream.
 	// Override the base class's getSpecs virtual function
-	void Line::getSpecs(std::istream& istrm)
-	{
-		int length;
-		bool result = false; 
+    void Line::getSpecs(std::istream& is)
+    {
+        int length;
+        bool result = false;
 
-		do {
-			//read label using base class's getspecs 
-			LblShape::getSpecs(istrm); 
-			 
-			// read the value of the m_length
-			istrm >> length;
+        do {
+            // read label using base class's getSpecs
+            LblShape::getSpecs(is);
 
-			//if  failed
-			if (!istrm)
-			{
-				istrm.clear(); 
-				istrm.ignore(1000, '\n'); 
-			}
-			else
-			{
-				//ignore The rest of the characters up to '\0'
-				istrm.ignore(); 
-				m_length = length; 
-				result = true; 
-			}
-		} while (!result); 
-	}
+            // read the value of the m_length
+            is >> length;
 
-	void Line::draw(std::ostream& os) const
-	{
-		if (m_length > 0 && LblShape::label())
-		{
-			//draw label and symbol as the provided format
-			os << LblShape::label() << endl; 
-			os.width(m_length); 
-			os.fill( '=');
-			os << "="; 
-		}
-	}
+            if (!is) {
+                is.clear();
+                is.ignore(32767, '\n');
+            }
+            else {
+                // ignore The rest of the characters up to and including '\n'
+                is.ignore();
+                m_length = length;
+                result = true;
+            }
+        } while (!result);
+    }
+
+    void Line::draw(std::ostream& os) const
+    {
+        if (m_length > 0 && LblShape::label()) 
+        {
+            // draw the label and symbol following the provided format
+            os << LblShape::label() << endl;
+            os.width(m_length);
+            os.fill('=');
+            os << '=';
+        }
+    }
 }

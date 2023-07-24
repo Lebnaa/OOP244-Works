@@ -19,49 +19,47 @@ piece of work is entirely of my own creation.
 //#include "cstring.h"
 
 using namespace std; 
-
+    
 namespace sdds
 {
+        const char* LblShape::label() const
+        {
+            return m_label;
+        }
 
-	//Allocates memory large enough to hold the 
-	//Cstring argument pointed by the m_label member variable
-	LblShape::LblShape(const char* label)
-	{
-		if (label && label[0] != '\0')
 
-		{//alloCopy(m_label, label);
-			m_label = new char(strlen(label) + 1);
-			strcpy(m_label, label);
-		}
-	}
+        //Allocates memory large enough to hold the 
+        //Cstring argument pointed by the m_label member variable
+        LblShape::LblShape(const char* label)
+        {
+            if (label && label[0] != '\0') 
+            {
+                m_label = new char[strlen(label) + 1];
+                strcpy(m_label, label);
+            }
+        }
 
-	//returns const value of m_label member variabl
-	const char* LblShape::label() const
-	{
-		return m_label;
-	}
+        LblShape::~LblShape()
+        {
+            if (m_label) 
+            {
+                delete[] m_label;
+                m_label = nullptr;
+            }
+        }
 
-	LblShape::~LblShape()
-	{
-		if (m_label)
-		{
-			delete[] m_label;
-			m_label = nullptr;
-		}
-	}
+        //Override the Shape::getSpecs func to receive a Cstring from istream up to the ','
+        void LblShape::getSpecs(std::istream& is)
+        {
+            string label;
 
-	//Override the Shape::getSpecs func to receive a Cstring from istream up to the ','
-	void LblShape::getSpecs(std::istream& is)
-	{
-		string label;
+            // Reads until ,
+            getline(is, label, ',');
 
-		//reads untill a ,
-		getline(is, label, ',');
-
-		delete[] m_label;
-		//c_str converts a string into int 
-		//alloCopy(m_label, label.c_str()); 
-		m_label = new char[strlen(label.c_str()) + 1];
-		strcpy(m_label, label.c_str());
-	}
-}
+            //c_str converts a string into int 
+            //alloCopy(m_label, label.c_str());       
+            delete[] m_label;
+            m_label = new char[strlen(label.c_str()) + 1];
+            strcpy(m_label, label.c_str());
+        }
+    }

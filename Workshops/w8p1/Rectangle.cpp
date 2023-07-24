@@ -33,63 +33,58 @@ namespace sdds
         }
     }
 
-    void Rectangle::getSpecs(std::istream& is)
+    void Rectangle::getSpecs(std::istream& istr)
     {
-        int height, width;
+        int width, height;
         char comma;
-        bool result = false; 
-        do
-        {
-            //reads label with base class's getspecs 
-            LblShape::getSpecs(is);
+        bool result = false;
 
-            //read the value of the m_width and the comma and the value of the m_height
-            is >> width >> comma >> height;
+        do {
+            // read the label by using base class's getSpecs
+            LblShape::getSpecs(istr);
 
-            //if is failed or any error causesd
-            if (!is)
-            {
-                is.clear();
-                is.ignore(1000, '\n');
+            // read the value of the m_width and the comma and the value of the m_height
+            istr >> width >> comma >> height;
+
+            if (!istr) {
+                istr.clear();
+                istr.ignore(3000, '\n');
             }
-            else
-            {
+            else {
                 // it will ignore The rest of the characters up to and including '\n'
-                is.ignore();
-                m_height = height;
+                istr.ignore();
                 m_width = width;
+                m_height = height;
                 result = true;
-
             }
         } while (!result);
     }
 
     void Rectangle::draw(std::ostream& os) const
     {
-        if (m_width > 0 && m_height >> 0)
+        if (m_width > 0 && m_height >> 0) 
         {
-            // draw  label and symbol as the provided format
+            // first line
             os << '+';
             os.width(m_width - 2);
             os.fill('-');
             os << '-' << '+' << endl;
 
-            //second line 
+            //  second line
             os << '|';
             os.width(m_width - 2);
             os.fill(' ');
             os << left << LblShape::label() << '|' << endl;
 
-            //middle line 
-            for (unsigned int i = 0; i < (m_height - 3); i++)
-            {
+            //  middle lines
+            for (unsigned int i = 0; i < (m_height - 3); i++) {
                 os << '|';
                 os.width(m_width - 2);
                 os.fill(' ');
                 os << ' ' << '|' << endl;
             }
 
-            //last line 
+            //  last line
             os << '+';
             os.width(m_width - 2);
             os.fill('-');
