@@ -11,8 +11,6 @@ I have done all the coding by myself and only copied the code that my professor 
 #ifndef SDDS_LIB_H
 #define SDDS_LIB_H
 
-#include <iostream>
-
 namespace sdds
 {
     const int SDDS_MAX_LOAN_DAYS = 15;

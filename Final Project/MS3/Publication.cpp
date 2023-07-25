@@ -7,11 +7,12 @@ Date of completion : 18 July 2023
 
 I have done all the coding by myself and only copied the code that my 
 professor provided to complete my workshops and assignments.*/
-
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include "Publication.h"
 #include "Lib.h"
-#include "Utils.h"
+//#include "Utils.h"
+#include <cstring>
 
 using namespace std; 
 
@@ -21,6 +22,13 @@ namespace sdds
 	{
 		setEmpty();
 	}
+
+
+	Publication::~Publication()
+	{
+		delete[] m_title; 
+	}
+
 	void Publication::setRef(int value)
 	{
 		m_libRef = value;
@@ -38,6 +46,34 @@ namespace sdds
 		m_membership = 0;
 		m_libRef = -1;
 		resetDate();
+	}
+
+	// copy constructor copying is allowed 
+	Publication::Publication(const Publication& publication)
+	{
+		*this = publication; 
+	}
+
+	//copy assignment operator copying is allowed. 
+	Publication& Publication::operator=(const Publication& publication)
+	{
+		//setting the variables 
+		set(publication.m_membership); 
+		setRef(publication.m_libRef); 
+		strcpy(m_shelfId, publication.m_shelfId); 
+		m_date = publication.m_date; 
+
+		if (m_title)
+		{
+			delete[] m_title; 
+			m_title = nullptr; 
+		}
+		else
+		{
+			m_title = nullptr; 
+		}
+
+		return *this; 
 	}
 
 	//Returns the character 'P' to identify this object as a "Publication object
@@ -65,7 +101,7 @@ namespace sdds
 
 	bool Publication::operator==(const char* title)const
 	{
-		return strStr(m_title, title) != nullptr;
+		return strstr(m_title, title) != nullptr;
 	}
 
 	Publication::operator const char* () const
@@ -80,7 +116,7 @@ namespace sdds
 
 	bool Publication::conIO(std::ios& io)const
 	{
-		bool result;
+		bool result = false;
 
 		if (&io == &cin || &io == &cout)
 		{
@@ -126,8 +162,6 @@ namespace sdds
 
 	std::istream& Publication::read(std::istream& istr)
 	{
-		//Read values in local variables before setting the attributes to any values.
-
 		// Temporary variables
 		char t_title[SDDS_TITLE_WIDTH + 1]{}, t_shelfId[SDDS_SHELF_ID_LEN + 1]{};
 		int t_libRef = -1, t_membership = 0;
@@ -150,7 +184,7 @@ namespace sdds
 			istr.getline(t_shelfId, SDDS_SHELF_ID_LEN + 1);
 
 			//if the number is not exactly the length it is supposed to be
-			if (strLen(t_shelfId) != SDDS_SHELF_ID_LEN)
+			if (strlen(t_shelfId) != SDDS_SHELF_ID_LEN)
 			{
 				//set the istr to a fail state manually 
 				istr.setstate(ios::failbit);
@@ -166,10 +200,8 @@ namespace sdds
 		{
 			istr >> t_libRef;
 			istr.ignore();
-			istr >> t_shelfId;
-			istr.ignore();
-			istr >> t_title;
-			istr.ignore();
+			istr.getline(t_shelfId, SDDS_SHELF_ID_LEN + 1, '\t');
+			istr.getline(t_title, SDDS_TITLE_WIDTH + 1, '\t');
 			istr >> t_membership;
 			istr.ignore();
 			istr >> t_date;
@@ -183,9 +215,9 @@ namespace sdds
 
 		if (istr)
 		{
-			m_title = new char(strLen(t_title) + 1);
-			strCpy(m_title, t_title);
-			strCpy(m_shelfId, t_shelfId);
+			m_title = new char[strlen(t_title) + 1];
+			strcpy(m_title, t_title);
+			strcpy(m_shelfId, t_shelfId);
 			m_membership = t_membership;
 			m_date = t_date;
 			m_libRef = t_libRef;
@@ -195,6 +227,7 @@ namespace sdds
 
 	}
 
+	// Overloads of this method will return if the Streamable object is in a valid state or not
 	Publication::operator bool() const
 	{
 		bool result = false;

@@ -15,11 +15,11 @@ using namespace std;
 #include "Date.h"
 namespace sdds
 {
-
+    // Variables
     bool sdds_test = false;
-    int sdds_year = 2023;
-    int sdds_mon = 12;
-    int sdds_day = 25;
+    int sdds_year = 2022;
+    int sdds_mon = 8;
+    int sdds_day = 7;
 
     bool Date::validate()
     {
@@ -47,8 +47,7 @@ namespace sdds
         return days[mon] + int((mon == 1) * ((m_year % 4 == 0) && (m_year % 100 != 0)) || (m_year % 400 == 0));
     }
 
-    int Date::systemYear()const 
-    {
+    int Date::systemYear()const {
         int theYear = sdds_year;
         if (!sdds_test) {
             time_t t = time(NULL);
@@ -58,8 +57,7 @@ namespace sdds
         return theYear;
     }
 
-    void Date::setToToday() 
-    {
+    void Date::setToToday() {
         if (sdds_test) {
             m_day = sdds_day;
             m_mon = sdds_mon;
@@ -87,12 +85,12 @@ namespace sdds
         return 365 * ty + ty / 4 - ty / 100 + ty / 400 + (153 * tm - 457) / 5 + m_day - 306;
     }
 
-    Date::Date() : m_CurYear{ systemYear() }
+    Date::Date() : m_CurYear(systemYear())
     {
         setToToday();
     }
 
-    Date::Date(int year, int mon, int day) : m_CurYear{ systemYear() }
+    Date::Date(int year, int mon, int day) : m_CurYear(systemYear())
     {
         m_year = year;
         m_mon = mon;
@@ -142,8 +140,6 @@ namespace sdds
         // If it did fail, it will set the error code to CIN_FAILED and clears the istream.
         if (!is)
         {
-            is.clear();
-            //is.ignore(100000, '\n');
             errCode(CIN_FAILED);
         }
         // If not, it will validate the values entered.
@@ -163,8 +159,8 @@ namespace sdds
         }
         else {
             os << m_year << "/";
-            os << setfill('0') << setw(2) << right << m_mon << "/";
-            os << setfill('0') << setw(2) << right << m_day;
+            os << os.fill('0') << os.width(2) << right << m_mon << "/";
+            os << os.fill('0') << os.width(2) << right << m_day;
         }
 
         return os;

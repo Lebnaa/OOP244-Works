@@ -11,7 +11,6 @@
 #include "Utils.h"
 #include "Date.h"
 
-
 using namespace std;
 using namespace sdds;
 
@@ -27,6 +26,7 @@ Publication readPublication(istream& istr) {
     istr >> P;
     return P;
 }
+
 Publication getNextRec(ifstream& ifstr) {
     Publication P;
     ifstr >> P;

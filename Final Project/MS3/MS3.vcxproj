@@ -127,7 +127,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\Utils.cpp" />
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="ms3_tester.cpp" />
     <ClCompile Include="Publication.cpp" />
@@ -138,7 +137,6 @@
     <ClInclude Include="Lib.h" />
     <ClInclude Include="Publication.h" />
     <ClInclude Include="Streamable.h" />
-    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
