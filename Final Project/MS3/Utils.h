@@ -1,30 +1,8 @@
-/***********************************************************************
-// OOP244 Utils Module
-// File	Utils.h
-// Version
-// Date
-// Author
-// Description
-//
-// Revision History
-// -----------------------------------------------------------
-// Name            Date            Reason
-// Lebna            July 7th/2023       Project Completion
-/////////////////////////////////////////////////////////////////
-***********************************************************************/
-#ifndef SDDS_UTILS_H__
-#define SDDS_UTILS_H__
-
-namespace sdds {
-
-	// Gets an integer as input and validates the range as well. It prints a message if the range isn't valid and prompts again
-	int getIntegerInput(int minRange, int maxRange);
-
-	void RealoCpy(char*& des, const char* str); 
-
-	void alloCopy(char*& des, const char* str);
-
-
+#pragma once
+#ifndef SDDS_UTILS_H
+#define SDDS_UTILS_H
+namespace sdds
+{
 
 	/// <summary>
 	/// Copies the source character string into the destination
@@ -69,8 +47,7 @@ namespace sdds {
 	/// </summary>
 	/// <param name="s"> string </param>
 	/// <returns> the length of the C-string in characters </returns>
-	int strLen(const char* s);
-
+	int strLen(const char* str);
 	/// <summary>
 	/// Find the address of first occurance of "str2" in "str1"
 	/// </summary>
@@ -87,6 +64,8 @@ namespace sdds {
 	/// <param name="src"> Source String </param>
 	void strCat(char* des, const char* src);
 
-
+	void reAloCpy(char*& des, const char* src);
+	void aloCpy(char*& des, const char* src);
 }
-#endif // SDDS_UTILS_H__
+
+#endif // !SDDS_UTILS_H

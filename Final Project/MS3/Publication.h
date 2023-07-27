@@ -6,7 +6,7 @@ Email : lnoori1@myseneca.ca
 Date of completion : 18 July 2023
 
 I have done all the coding by myself and only copied the code that my professor provided to 
-complete my workshops and assignments.*/ 
+complete my workshops and assignments,  with using Fardad's Utils files and.*/ 
 #ifndef SDDS_PUBLICATION_H
 #define SDDS_PUBLICATION_H
 
@@ -17,7 +17,7 @@ complete my workshops and assignments.*/
 namespace sdds {
     class Publication : public Streamable {
     private:
-        char* m_title;
+        char* m_title{};
         char m_shelfId[SDDS_SHELF_ID_LEN + 1];
         int m_membership;
         int m_libRef;
@@ -64,12 +64,11 @@ namespace sdds {
 
         // Returns true if the address of the io object is the same as the address of either the cin object or the cout object.
         bool conIO(std::ios& io) const;
-
         // Write into an ostream object
-        std::ostream& write(std::ostream& os) const;
+        std::ostream& write(std::ostream& ostr) const;
 
         // Read from an istream object.
-        std::istream& read(std::istream& is);
+        std::istream& read(std::istream& istr);
 
         // Overloads of this method will return if the Streamable object is in a valid state or not
         operator bool() const;

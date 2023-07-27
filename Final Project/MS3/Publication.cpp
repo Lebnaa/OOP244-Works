@@ -6,13 +6,13 @@ Email : lnoori1@myseneca.ca
 Date of completion : 18 July 2023
 
 I have done all the coding by myself and only copied the code that my 
-professor provided to complete my workshops and assignments.*/
+professor provided to complete my workshops and assignments,  with using Fardad's Utils files and.*/
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include "Publication.h"
 #include "Lib.h"
-//#include "Utils.h"
-#include <cstring>
+#include "Utils.h"
+//#include <cstring>
 
 using namespace std; 
 
@@ -60,20 +60,21 @@ namespace sdds
 		//setting the variables 
 		set(publication.m_membership); 
 		setRef(publication.m_libRef); 
-		strcpy(m_shelfId, publication.m_shelfId); 
+		strCpy(m_shelfId, publication.m_shelfId); 
 		m_date = publication.m_date; 
 
 		if (m_title)
 		{
-			delete[] m_title; 
-			m_title = nullptr; 
+			delete[] m_title;
+			m_title = nullptr;
 		}
-		else
-		{
-			m_title = nullptr; 
-		}
-
 		return *this; 
+	}
+
+	// Sets the membership attribute to either zero or a five-digit integer.
+	void Publication::set(int member_id) 
+	{
+		m_membership = member_id;
 	}
 
 	//Returns the character 'P' to identify this object as a "Publication object
@@ -101,7 +102,7 @@ namespace sdds
 
 	bool Publication::operator==(const char* title)const
 	{
-		return strstr(m_title, title) != nullptr;
+		return strStr(m_title, title) != nullptr;
 	}
 
 	Publication::operator const char* () const
@@ -118,7 +119,7 @@ namespace sdds
 	{
 		bool result = false;
 
-		if (&io == &cin || &io == &cout)
+		if (&io == &std::cin || &io == &std::cout)
 		{
 			result = true;
 		}
@@ -126,38 +127,40 @@ namespace sdds
 		return result;
 	}
 
-	std::ostream& Publication::write(std::ostream& os) const
+	std::ostream& Publication::write(std::ostream& ostr) const
 	{
-		if (conIO(os))
+		if (conIO(ostr))
 		{
-			os << "|" << m_shelfId << "|" << cout.width(30) << left << cout.fill('.') << m_title << "|";
+			ostr << "|" << m_shelfId << "|";
+			ostr.width(30); 
+			ostr << std::left << ostr.fill('.') << m_title << "|";
 
 			if (m_membership != 0)
 			{
-				os << m_membership;
+				ostr << m_membership;
 			}
 			else
 			{
-				os << "N/A";
+				ostr << "N/A";
 			}
-			os << "\t" << m_date;
+			ostr << "\t" << m_date;
 		}
 		else
 		{
-			os << type() << "\t";
-			os << "\t" << m_libRef << "\t" << m_shelfId << "\t" << m_title << "\t";
+			ostr << type() << "\t";
+			ostr << "\t" << m_libRef << "\t" << m_shelfId << "\t" << m_title << "\t";
 
 			if (m_membership != 0)
 			{
-				os << m_membership;
+				ostr << m_membership;
 			}
 			else
 			{
-				os << "N/A";
+				ostr << "N/A";
 			}
-			os << "\t" << m_date;
+			ostr << "\t" << m_date;
 		}
-		return os;
+		return ostr;
 	}
 
 	std::istream& Publication::read(std::istream& istr)
@@ -179,21 +182,21 @@ namespace sdds
 
 		if (conIO(istr))
 		{
-			cout << "Shelf No: ";
+			std::cout << "Shelf No: ";
 			//read the shelf number up to its limit (see Lib.h).
 			istr.getline(t_shelfId, SDDS_SHELF_ID_LEN + 1);
 
 			//if the number is not exactly the length it is supposed to be
-			if (strlen(t_shelfId) != SDDS_SHELF_ID_LEN)
+			if (strLen(t_shelfId) != SDDS_SHELF_ID_LEN)
 			{
 				//set the istr to a fail state manually 
 				istr.setstate(ios::failbit);
 			}
 
-			cout << "Title: ";
+			std::cout << "Title: ";
 			istr.getline(t_title, SDDS_TITLE_WIDTH + 1);
 
-			cout << "Date: ";
+			std::cout << "Date: ";
 			istr >> t_date;
 		}
 		else
@@ -215,9 +218,12 @@ namespace sdds
 
 		if (istr)
 		{
-			m_title = new char[strlen(t_title) + 1];
-			strcpy(m_title, t_title);
-			strcpy(m_shelfId, t_shelfId);
+			/*m_title = new char[strlen(t_title) + 1];
+			strCpy(m_title, t_title);*/
+
+			aloCpy(m_title, t_title); 
+
+			strCpy(m_shelfId, t_shelfId);
 			m_membership = t_membership;
 			m_date = t_date;
 			m_libRef = t_libRef;
