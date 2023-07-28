@@ -20,10 +20,10 @@ I have done all the coding by myself and only copied the code that my professor 
 namespace sdds {
     class Publication : public Streamable {
     private:
-        char* m_title;
-        char m_shelfId[SDDS_SHELF_ID_LEN + 1];
-        int m_membership;
-        int m_libRef;
+        char* m_title{};
+        char m_shelfId[SDDS_SHELF_ID_LEN + 1]{};
+        int m_membership{};
+        int m_libRef{};
         Date m_date;
     public:
         Publication();

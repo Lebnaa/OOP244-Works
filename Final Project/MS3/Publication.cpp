@@ -64,12 +64,8 @@ namespace sdds
 		setRef(publication.m_libRef); 
 		strCpy(m_shelfId, publication.m_shelfId); 
 		m_date = publication.m_date; 
+		reAloCpy( m_title, publication.m_title );
 
-		if (m_title)
-		{
-			delete[] m_title;
-			m_title = nullptr;
-		}
 		return *this; 
 	}
 
@@ -168,7 +164,8 @@ namespace sdds
 	std::istream& Publication::read(std::istream& istr)
 	{
 		// Temporary variables
-		char t_title[SDDS_TITLE_WIDTH + 1]{}, t_shelfId[SDDS_SHELF_ID_LEN + 1]{};
+		char t_title[SDDS_TITLE_WIDTH + 1]{},
+			t_shelfId[SDDS_SHELF_ID_LEN + 1]{};
 		int t_libRef = -1, t_membership = 0;
 		Date t_date;
 
@@ -223,7 +220,7 @@ namespace sdds
 			/*m_title = new char[strlen(t_title) + 1];
 			strCpy(m_title, t_title);*/
 
-			aloCpy(m_title, t_title);
+			reAloCpy(m_title, t_title);
 
 			strCpy(m_shelfId, t_shelfId);
 			m_membership = t_membership;
