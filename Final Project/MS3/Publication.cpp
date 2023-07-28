@@ -29,11 +29,13 @@ namespace sdds
 		delete[] m_title; 
 	}
 
+	// Sets the **libRef** attribute value
 	void Publication::setRef(int value)
 	{
 		m_libRef = value;
 	}
 
+	//sets to current date 
 	void Publication::resetDate()
 	{
 		m_date = Date();
@@ -183,7 +185,7 @@ namespace sdds
 		if (conIO(istr))
 		{
 			std::cout << "Shelf No: ";
-			//read the shelf number up to its limit (see Lib.h).
+			//read the shelf number up to its limit (Lib.h).
 			istr.getline(t_shelfId, SDDS_SHELF_ID_LEN + 1);
 
 			//if the number is not exactly the length it is supposed to be
@@ -221,7 +223,7 @@ namespace sdds
 			/*m_title = new char[strlen(t_title) + 1];
 			strCpy(m_title, t_title);*/
 
-			aloCpy(m_title, t_title); 
+			aloCpy(m_title, t_title);
 
 			strCpy(m_shelfId, t_shelfId);
 			m_membership = t_membership;
