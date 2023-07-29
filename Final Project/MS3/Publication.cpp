@@ -9,8 +9,8 @@ I have done all the coding by myself and only copied the code that my
 professor provided to complete my workshops and assignments,  with using Fardad's Utils files and.*/
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
+#include <iomanip>
 #include "Publication.h"
-#include "Lib.h"
 #include "Utils.h"
 //#include <cstring>
 
@@ -133,40 +133,37 @@ namespace sdds
 		return result;
 	}
 
-	std::ostream& Publication::write(std::ostream& ostr) const
-	{
-		if (conIO(ostr))
+	std::ostream& Publication::write(std::ostream& os) const {
+		if (conIO(os))
 		{
-			ostr << "| " << m_shelfId << " | ";
-			ostr.width(30);
-			ostr << std::left << m_title << ostr.fill('.') << "| ";			
+			os << "| " << m_shelfId << " | " << std::setw(30) << std::left << std::setfill('.') << m_title << " | ";
 			if (m_membership != 0)
 			{
-				ostr << m_membership;
+				os << m_membership;
 			}
 			else
 			{
-				ostr << " N/A ";
+				os << " N/A ";
 			}
-			ostr << " | " << m_date << " |";
+			os << " | " << m_date << " |";
 		}
 		else
 		{
-			ostr << type() << "\t";
-			ostr << "\t" << m_libRef << "\t" << m_shelfId << "\t" << m_title << "\t";
+			os << type() << "\t";
+			os << "\t" << m_libRef << "\t" << m_shelfId << "\t" << m_title << "\t";
 			if (m_membership != 0)
 			{
-				ostr << m_membership;
+				os << m_membership;
 			}
 			else
 			{
-				ostr << " N/A ";
+				os << " N/A ";
 			}
-			ostr << "\t" << m_date;
+			os << "\t" << m_date;
 		}
 
-	return ostr;
-}
+		return os;
+	}
 
 
 	std::istream& Publication::read(std::istream& istr)
