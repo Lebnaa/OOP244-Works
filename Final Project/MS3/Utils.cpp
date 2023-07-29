@@ -30,15 +30,7 @@ namespace sdds
         return input;
     }
 
-    bool alloCopy(char*& des, const char* str) {
-        delete[] des;
-        if (str && str[0]) {
-            des = new char[strLen(str) + 1];
-            strCpy(des, str);
-        }
-        return str && str[0];
-    }
-
+    
     void strCpy(char* des, const char* src) {
         int i;
         for (i = 0; src[i] != 0; i++) {

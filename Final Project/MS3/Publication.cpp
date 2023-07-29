@@ -12,7 +12,7 @@ professor provided to complete my workshops and assignments,  with using Fardad'
 #include <iomanip>
 #include "Publication.h"
 #include "Utils.h"
-//#include <cstring>
+#include <cstring>
 
 using namespace std;
 
@@ -65,13 +65,20 @@ namespace sdds
 		setRef(publication.m_libRef);
 		strCpy(m_shelfId, publication.m_shelfId);
 		m_date = publication.m_date;
-		reAloCpy(m_title, publication.m_title);
+		//reAloCpy(m_title, publication.m_title);
 
+		if (m_title)
+		{
+			delete[] m_title;
+			m_title = nullptr;
+		}
 		
+		//deep copying 
 		if (publication.m_title != nullptr)
 		{
-			m_title = new char[strLen(publication.m_title) + 1];
-			strCpy(m_title, publication.m_title);
+			aloCpy(m_title, publication.m_title); 
+			/*m_title = new char[strLen(publication.m_title) + 1];
+			strCpy(m_title, publication.m_title);*/
 		}
 
 		return *this;
@@ -108,7 +115,7 @@ namespace sdds
 
 	bool Publication::operator==(const char* title)const
 	{
-		return strStr(m_title, title) != nullptr;
+		return strstr(m_title, title) != nullptr;
 	}
 
 	Publication::operator const char* () const
