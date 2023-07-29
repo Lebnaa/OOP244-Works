@@ -8,17 +8,18 @@
 // Name               Date                 Reason
 /////////////////////////////////////////////////////////////////
 #define _CRT_SECURE_NO_WARNINGS
+#include <iomanip>
 #include <iostream>
 #include <ctime>
 using namespace std;
 #include "Date.h"
 namespace sdds
 {
-    // Variables
+    // temporary Variables
     bool sdds_test = false;
-    int sdds_year = 2022;
-    int sdds_mon = 8;
-    int sdds_day = 7;
+    int sdds_year = 2023;
+    int sdds_mon = 12;
+    int sdds_day = 25;
 
     bool Date::validate()
     {
@@ -158,8 +159,8 @@ namespace sdds
         }
         else {
             os << m_year << "/";
-            os << os.fill('0') << os.width(2) << right << m_mon << "/";
-            os << os.fill('0') << os.width(2) << right << m_day;
+            os << setfill('0') << setw(2) << right << m_mon << "/";
+            os << setfill('0') << setw(2) << right << m_day;
         }
 
         return os;

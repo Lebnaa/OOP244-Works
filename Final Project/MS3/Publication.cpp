@@ -5,7 +5,7 @@ Student ID# : 157672205
 Email : lnoori1@myseneca.ca
 Date of completion : 18 July 2023
 
-I have done all the coding by myself and only copied the code that my 
+I have done all the coding by myself and only copied the code that my
 professor provided to complete my workshops and assignments,  with using Fardad's Utils files and.*/
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
@@ -14,7 +14,7 @@ professor provided to complete my workshops and assignments,  with using Fardad'
 #include "Utils.h"
 //#include <cstring>
 
-using namespace std; 
+using namespace std;
 
 namespace sdds
 {
@@ -26,7 +26,8 @@ namespace sdds
 
 	Publication::~Publication()
 	{
-		delete[] m_title; 
+		delete[] m_title;
+		m_title = nullptr; 
 	}
 
 	// Sets the **libRef** attribute value
@@ -53,24 +54,31 @@ namespace sdds
 	// copy constructor copying is allowed 
 	Publication::Publication(const Publication& publication)
 	{
-		*this = publication; 
+		*this = publication;
 	}
 
 	//copy assignment operator copying is allowed. 
 	Publication& Publication::operator=(const Publication& publication)
 	{
 		//setting the variables 
-		set(publication.m_membership); 
-		setRef(publication.m_libRef); 
-		strCpy(m_shelfId, publication.m_shelfId); 
-		m_date = publication.m_date; 
-		reAloCpy( m_title, publication.m_title );
+		set(publication.m_membership);
+		setRef(publication.m_libRef);
+		strCpy(m_shelfId, publication.m_shelfId);
+		m_date = publication.m_date;
+		reAloCpy(m_title, publication.m_title);
 
-		return *this; 
+		
+		if (publication.m_title != nullptr)
+		{
+			m_title = new char[strLen(publication.m_title) + 1];
+			strCpy(m_title, publication.m_title);
+		}
+
+		return *this;
 	}
 
 	// Sets the membership attribute to either zero or a five-digit integer.
-	void Publication::set(int member_id) 
+	void Publication::set(int member_id)
 	{
 		m_membership = member_id;
 	}
@@ -129,37 +137,37 @@ namespace sdds
 	{
 		if (conIO(ostr))
 		{
-			ostr << "|" << m_shelfId << "|";
-			ostr.width(30); 
-			ostr << std::left << ostr.fill('.') << m_title << "|";
-
+			ostr << "| " << m_shelfId << " | ";
+			ostr.width(30);
+			ostr << std::left << m_title << ostr.fill('.') << "| ";			
 			if (m_membership != 0)
 			{
 				ostr << m_membership;
 			}
 			else
 			{
-				ostr << "N/A";
+				ostr << " N/A ";
 			}
-			ostr << "\t" << m_date;
+			ostr << " | " << m_date << " |";
 		}
 		else
 		{
 			ostr << type() << "\t";
 			ostr << "\t" << m_libRef << "\t" << m_shelfId << "\t" << m_title << "\t";
-
 			if (m_membership != 0)
 			{
 				ostr << m_membership;
 			}
 			else
 			{
-				ostr << "N/A";
+				ostr << " N/A ";
 			}
 			ostr << "\t" << m_date;
 		}
-		return ostr;
-	}
+
+	return ostr;
+}
+
 
 	std::istream& Publication::read(std::istream& istr)
 	{
@@ -169,7 +177,6 @@ namespace sdds
 		int t_libRef = -1, t_membership = 0;
 		Date t_date;
 
-
 		//freeing the memory and setting everything to their default values.
 		if (m_title)
 		{
@@ -177,6 +184,7 @@ namespace sdds
 			m_title = nullptr;
 		}
 
+		strCpy(m_shelfId, "");
 		setEmpty();
 
 		if (conIO(istr))
@@ -208,15 +216,13 @@ namespace sdds
 			istr.ignore();
 			istr >> t_date;
 		}
-
-		// if the date is in an invalid state set the istr to a fail state manually
-		if (!m_date)
+		if (!t_date)
 		{
 			istr.setstate(ios::failbit);
 		}
-
 		if (istr)
 		{
+
 			/*m_title = new char[strlen(t_title) + 1];
 			strCpy(m_title, t_title);*/
 
@@ -229,8 +235,8 @@ namespace sdds
 		}
 
 		return istr;
-
 	}
+
 
 	// Overloads of this method will return if the Streamable object is in a valid state or not
 	Publication::operator bool() const
