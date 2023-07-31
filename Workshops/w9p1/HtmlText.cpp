@@ -35,10 +35,10 @@ namespace sdds
 		m_title = nullptr; 
 	}
 
-	//copy constructor 
-	HtmlText::HtmlText(const HtmlText& htmlText)
+	//copy constructor
+	HtmlText::HtmlText(const HtmlText& htmlText) : m_title(nullptr)
 	{
-		*this = htmlText; 
+		*this = htmlText;
 	}
 
 	HtmlText& HtmlText::operator=(const HtmlText& htmlText)
@@ -53,7 +53,7 @@ namespace sdds
 		}
 		else
 		{
-			m_title = nullptr
+			m_title = nullptr;
 		}
 
 		return *this; 
@@ -68,18 +68,20 @@ namespace sdds
 		cout << "<html><head><title>";
 		if (m_title != nullptr)
 		{
-			cout << m_title; 
+			os << m_title; 
 		}
 		else
 		{
-			cout << "No Title"; 
+			os << "No Title"; 
 		}
 
 		cout << "</title></head>\n<body>\n"; 
 		if (m_title)
 		{
-			cout << "<h1>" << m_title << "</h1>\n";
+			os << "<h1>" << m_title << "</h1>\n";
 
+			
+			//while (Text::operator[](i) != '\0')
 			while (Text::operator[](i) != '\0')
 			{
 				t_char = Text::operator[](i); 
@@ -88,43 +90,39 @@ namespace sdds
 				{
 					if (MS)
 					{
-						cout << " & nbsp;"; 
+						os << " & nbsp;"; 
 					}
 					else
 					{
-						cout << t_char; 
+						os << t_char; 
 						MS = true; 
 					}
 				}
 				else if (t_char == '\n')
 				{
-					cout << "<br />\n";
+					os << "<br />\n";
 					MS = false;
 				}
 				else if (t_char == '>')
 				{
-					cout << "&gt;"; 
+					os << "&gt;"; 
 					MS = false; 
 				}
 				else if (t_char == '<')
 				{
-					cout << "&lt;";
+					os << "&lt;";
 					MS = false; 
 				}
 				else
 				{
-					cout << t_char; 
+					os << t_char; 
 					MS = false; 
 				}
 				i++; 
 			}
 		}
-		cout << "</body>\n</html>"; 
+		os << "</body>\n</html>"; 
 	}
-
-
-
-
 
 
 }

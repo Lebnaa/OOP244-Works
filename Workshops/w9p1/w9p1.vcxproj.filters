@@ -38,8 +38,5 @@
     <ClCompile Include="w9Tester.cpp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="w9Tester_prof.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

@@ -28,7 +28,6 @@ namespace sdds
 		//provides read-only access to the content of the text for the derived classes of Text.
 		const char& operator[](int index)const;
 	public:
-		Text() = default; 
 		Text(const char* filename = nullptr); 
 
 		//rule of three
@@ -40,7 +39,7 @@ namespace sdds
 		void read(); 
 
 		//will insert the content of the Text class into the ostream if m_content is not null.
-		virtual void write(std::ostream& os = cout)const; 
+		virtual void write(std::ostream& os)const; 
 	};
 
 	std::ostream& operator<<(std::ostream& os, const Text& text); 

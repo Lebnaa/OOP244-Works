@@ -23,7 +23,6 @@ namespace sdds
 	{
 		char* m_title{};
 	public:
-		HtmlText() = default; 
 		HtmlText(const char* filename = nullptr, const char* titile = nullptr);
 
 		//rule of three
@@ -31,6 +30,6 @@ namespace sdds
 		HtmlText(const HtmlText& htmlText); 
 		HtmlText& operator=(const HtmlText& htmlText); 
 
-		void write(std::ostream& os = std::cout)const; 
+		void write(std::ostream& os)const; 
 	};
 }

@@ -30,19 +30,10 @@ namespace sdds
         return len;
     }
 
-    const char& Text::operator[](int index) const
+    const char& Text::operator[](int index) const 
     {
-        bool result; 
-        if (index >= 0 || index < getFileLength())
-        {
-           result = m_content[index]; 
-        }
-        else
-        {
-            result = m_content[getFileLength()]; 
-        }
+        return (index >= 0 || index < getFileLength()) ? m_content[index] : m_content[getFileLength()];
 
-        return result; 
     }
 
     Text::Text(const char* filename) : m_filename(nullptr), m_content(nullptr)
@@ -63,7 +54,7 @@ namespace sdds
     }
 
     //copy constructor 
-    Text::Text(const Text& text)
+    Text::Text(const Text& text) : m_filename(nullptr), m_content(nullptr)
     {
         if (text.m_filename)
         {
@@ -125,11 +116,11 @@ namespace sdds
 
     }
 
-    void Text::write(std::ostream& os = cout) const
+    void Text::write(std::ostream& os) const
     {
         if (m_content)
         {
-            cout << m_content;
+            os << m_content;
         }
     }
 
