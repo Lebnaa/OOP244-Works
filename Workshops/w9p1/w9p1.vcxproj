@@ -129,12 +129,12 @@
   <ItemGroup>
     <ClInclude Include="Text.h" />
     <ClInclude Include="HtmlText.h" />
-    <ClInclude Include="Utils.h" />
+    <ClInclude Include="cstring.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HtmlText.cpp" />
     <ClCompile Include="Text.cpp" />
-    <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="cstring.cpp" />
     <ClCompile Include="w9Tester.cpp.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -11,118 +11,121 @@ I declare this submission is the result of my own work and has not been
 shared with any other student or 3rd party content provider. This submitted
 piece of work is entirely of my own creation.
 *****************************************************************************/
+#include <cstring>
 #include "HtmlText.h"
-#include "Utils.h"
+#include "cstring.h"
 using namespace std; 
 
-namespace sdds
-{
-	HtmlText::HtmlText(const char* filename, const char* title) : Text(filename), m_title(nullptr)
-	{
-		if (title)
-		{
-			aloCpy(m_title, title); 
-		}
-		else
-		{
-			m_title = nullptr; 
-		}
-	}
+namespace sdds {
+    //given constrctor
+    HtmlText::HtmlText(const char* filename, const char* title) : Text(filename), m_title(nullptr)
+    {
+        if (title)
+        {
+            m_title = new char[strLen(title) + 1];
+            strCpy(m_title, title);
+        }
+        else
+        {
+            m_title = nullptr;
+        }
+    }
+    //rule of 3
+    //copy assignment
+    HtmlText& HtmlText::operator=(const HtmlText& htmlText) 
+    {
+        if (this != &htmlText)
+        {
+            (Text&)*this = htmlText;
 
-	HtmlText::~HtmlText()
-	{
-		delete[] m_title; 
-		m_title = nullptr; 
-	}
+            if (m_title)
+            {
+                delete[] m_title;
+            }
+            if (htmlText.m_title) 
+            {
+                m_title = new char[strLen(htmlText.m_title) + 1];
+                strCpy(m_title, htmlText.m_title);
+            }
+            else
+            {
+                m_title = nullptr;
+            }
+        }
 
-	//copy constructor
-	HtmlText::HtmlText(const HtmlText& htmlText) : m_title(nullptr)
-	{
-		*this = htmlText;
-	}
+        return *this;
+    }
+    //copy constructor
+    HtmlText::HtmlText(const HtmlText& other) : m_title(nullptr)
+    {
+        *this = other;
+    }
 
-	HtmlText& HtmlText::operator=(const HtmlText& htmlText)
-	{
-		if (this != &htmlText)
-		{
-			delete[] m_title; 
-		}
-		if (htmlText.m_title)
-		{
-			aloCpy(m_title, htmlText.m_title); 
-		}
-		else
-		{
-			m_title = nullptr;
-		}
+    //destructor
+    HtmlText::~HtmlText() 
+    {
+        delete[] m_title;
+        m_title = nullptr;
+    }
 
-		return *this; 
-	}
+    void HtmlText::write(std::ostream& os) const 
+    {
+        bool MS = false;
+        char tempChar;
+        int i = 0;
 
-	void HtmlText::write(std::ostream& os) const
-	{
-		bool MS = false; 
-		char t_char; 
-		int i = 0; 
+        os << "<html><head><title>";
+        if (m_title != nullptr)
+        {
+            os << m_title;
+        }
+        else
+        {
+            os << "No title";
+        }
+        os << "</title></head>\n<body>\n";
 
-		cout << "<html><head><title>";
-		if (m_title != nullptr)
-		{
-			os << m_title; 
-		}
-		else
-		{
-			os << "No Title"; 
-		}
+        if (m_title) {
+            os << "<h1>" << m_title << "</h1>\n";
 
-		cout << "</title></head>\n<body>\n"; 
-		if (m_title)
-		{
-			os << "<h1>" << m_title << "</h1>\n";
+            while (Text::operator[](i) != '\0')
+            {
+                tempChar = Text::operator[](i);
 
-			
-			//while (Text::operator[](i) != '\0')
-			while (Text::operator[](i) != '\0')
-			{
-				t_char = Text::operator[](i); 
+                if (tempChar == ' ')
+                {
+                    if (MS)
+                        os << "&nbsp;";
+                    else
+                    {
+                        os << tempChar;
+                        MS = true;
+                    }
+                }
+                else if (tempChar == '<')
+                {
+                    os << "&lt;";
+                    MS = false;
+                }
+                else if (tempChar == '>')
+                {
+                    os << "&gt;";
+                    MS = false;
+                }
+                else if (tempChar == '\n')
+                {
+                    os << "<br />\n";
+                    MS = false;
+                }
+                else
+                {
+                    os << tempChar;
+                    MS = false;
+                }
 
-				if (t_char == ' ')
-				{
-					if (MS)
-					{
-						os << " & nbsp;"; 
-					}
-					else
-					{
-						os << t_char; 
-						MS = true; 
-					}
-				}
-				else if (t_char == '\n')
-				{
-					os << "<br />\n";
-					MS = false;
-				}
-				else if (t_char == '>')
-				{
-					os << "&gt;"; 
-					MS = false; 
-				}
-				else if (t_char == '<')
-				{
-					os << "&lt;";
-					MS = false; 
-				}
-				else
-				{
-					os << t_char; 
-					MS = false; 
-				}
-				i++; 
-			}
-		}
-		os << "</body>\n</html>"; 
-	}
-
-
+                i++;
+            }
+        }
+        os << "</body>\n</html>";
+    }
 }
