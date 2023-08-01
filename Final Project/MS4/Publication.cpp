@@ -27,7 +27,7 @@ namespace sdds
 	Publication::~Publication()
 	{
 		delete[] m_title;
-		m_title = nullptr; 
+		m_title = nullptr;
 	}
 
 	// Sets the **libRef** attribute value
@@ -72,11 +72,11 @@ namespace sdds
 			delete[] m_title;
 			m_title = nullptr;
 		}
-		
+
 		//deep copying 
 		if (publication.m_title != nullptr)
 		{
-			aloCpy(m_title, publication.m_title); 
+			aloCpy(m_title, publication.m_title);
 			/*m_title = new char[strLen(publication.m_title) + 1];
 			strCpy(m_title, publication.m_title);*/
 		}

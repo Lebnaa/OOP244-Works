@@ -8,7 +8,7 @@ namespace sdds
 {
 	class Book : public Publication
 	{
-		char* AuthorName{}; 
+		char* AuthorName{};
 	public:
 		Book() = default;
 
@@ -22,7 +22,7 @@ namespace sdds
 
 		// Queries / Getters
 		// Returns the character 'P' to identify this object as a "Publication object"
-		virtual char type() const;
+		char type() const;
 
 		// Write into an ostream object
 		std::ostream& write(std::ostream& os) const;
