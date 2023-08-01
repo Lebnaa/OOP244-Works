@@ -194,7 +194,7 @@ namespace sdds
 		if (conIO(istr))
 		{
 			std::cout << "Shelf No: ";
-			//read the shelf number up to its limit (Lib.h).
+			//read the shelf number into char array up to its limit (Lib.h).
 			istr.getline(t_shelfId, SDDS_SHELF_ID_LEN + 1);
 
 			//if the number is not exactly the length it is supposed to be
