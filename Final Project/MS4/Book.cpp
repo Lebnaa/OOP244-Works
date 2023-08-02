@@ -1,20 +1,22 @@
-/*
-*****************************************************************************
-                              Book.cpp
-Full Name  : Aryan Khurana
-Student ID#: 145282216
-Email      : akhurana22@myseneca.ca
-Date of completion    : 20 July 2022
+/*****************************************************************************
+Lib.h
+Full Name : Lebna Noori
+Student ID# : 157672205
+Email : lnoori1@myseneca.ca
+Date of completion : 18 July 2023
 
-I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
-*****************************************************************************
-*/
+I have done all the coding by myself and only copied the code that my
+professor provided to complete my workshops and assignments,  with using Fardad's Utils files and.*/
+
+
 #define _CRT_SECURE_NO_WARNINGS
 #include "Book.h"
 #include <iostream>
-#include <cstring>
+//#include <cstring>
 #include <iomanip>
 
+#include "Utils.h"
+using namespace std; 
 namespace sdds 
 {
 
@@ -31,9 +33,10 @@ namespace sdds
             delete[] authorName;
             authorName = nullptr;
         }
+        aloCpy(authorName, book.authorName); 
 
-        authorName = new char[strlen(book.authorName) + 1];
-        strcpy(authorName, book.authorName);
+        /*authorName = new char[strlen(book.authorName) + 1];
+        strcpy(authorName, book.authorName);*/
     }
 
     Book& Book::operator=(const Book& book) 
@@ -48,8 +51,10 @@ namespace sdds
 
         if (book.authorName) 
         {
-            authorName = new char[strlen(book.authorName) + 1];
-            strcpy(authorName, book.authorName);
+            aloCpy(authorName, book.authorName);
+
+            /*authorName = new char[strlen(book.authorName) + 1];
+            strcpy(authorName, book.authorName);*/
         }
 
         return *this;
@@ -62,18 +67,20 @@ namespace sdds
     }
 
     // Write into an ostream object
-    std::ostream& Book::write(std::ostream& os) const 
-    {
-        Publication::write(os);
 
+    std::ostream& Book::write(std::ostream& os) const
+    {
+        char tempName[SDDS_AUTHOR_WIDTH + 1] = { 0 };
+
+        Publication::write(os);
         if (conIO(os))
         {
-            char author[SDDS_AUTHOR_WIDTH + 1] = { 0 };
-            std::strncpy(author, authorName, SDDS_AUTHOR_WIDTH);
+            strnCpy(tempName, authorName, SDDS_AUTHOR_WIDTH);
             os << " ";
-            os << std::setw(SDDS_AUTHOR_WIDTH) << std::left << std::setfill(' ') << author << " |";
+            os << setw(SDDS_AUTHOR_WIDTH) << left << setfill(' ') << tempName << " |";
         }
-        else {
+        else
+        {
             os << "\t" << authorName;
         }
 
@@ -83,7 +90,7 @@ namespace sdds
     // Read from an istream object.
     std::istream& Book::read(std::istream& is)
     {
-        char authName[256] = { 0 };
+        char t_auther[256] = { 0 };
 
         Publication::read(is);
 
@@ -103,11 +110,14 @@ namespace sdds
             is.ignore(1000, '\t'); //ignores '\t'
         }
 
-        is.get(authName, 256);
+        is.get(t_auther, 256);
 
-        if (is) {
-            authorName = new char[strlen(authName) + 1];
-            strcpy(authorName, authName);
+        if (is) 
+        {
+            aloCpy(authorName, t_auther);
+
+           /* authorName = new char[strlen(authName) + 1];
+            strcpy(authorName, authName);*/
         }
 
         return is;
