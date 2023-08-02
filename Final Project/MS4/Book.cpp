@@ -1,4 +1,5 @@
-/*****************************************************************************
+/*
+*****************************************************************************
 Lib.h
 Full Name : Lebna Noori
 Student ID# : 157672205
@@ -8,79 +9,68 @@ Date of completion : 18 July 2023
 I have done all the coding by myself and only copied the code that my
 professor provided to complete my workshops and assignments,  with using Fardad's Utils files and.*/
 
-
 #define _CRT_SECURE_NO_WARNINGS
 #include "Book.h"
 #include <iostream>
-//#include <cstring>
+#include <cstring>
 #include <iomanip>
 
-#include "Utils.h"
-using namespace std; 
-namespace sdds 
-{
+namespace sdds {
+    Book::Book() : Publication() {
+        setBookEmpty();
+    }
 
     Book::~Book() {
         delete[] authorName;
-        authorName = nullptr; 
     }
 
     // Copying is allowed
-    Book::Book(const Book& book) : Publication(book)
-    {
-        if (authorName)
-        {
+    Book::Book(const Book& book) : Publication(book) {
+        if (authorName) {
             delete[] authorName;
             authorName = nullptr;
         }
-        aloCpy(authorName, book.authorName); 
 
-        /*authorName = new char[strlen(book.authorName) + 1];
-        strcpy(authorName, book.authorName);*/
+        authorName = new char[strlen(book.authorName) + 1];
+        strcpy(authorName, book.authorName);
     }
 
-    Book& Book::operator=(const Book& book) 
-    {
+    Book& Book::operator=(const Book& book) {
         Publication::operator=(book);
 
-        if (authorName)
-        {
+        if (authorName) {
             delete[] authorName;
             authorName = nullptr;
         }
 
-        if (book.authorName) 
-        {
-            aloCpy(authorName, book.authorName);
-
-            /*authorName = new char[strlen(book.authorName) + 1];
-            strcpy(authorName, book.authorName);*/
+        if (book.authorName) {
+            authorName = new char[strlen(book.authorName) + 1];
+            strcpy(authorName, book.authorName);
         }
 
         return *this;
     }
 
-    // Returns the character 'B' to identify this object as a "Book object"
-    char Book::type() const 
-    {
-        return 'B';
+    // Sets book to empty state
+    void Book::setBookEmpty() {
+        authorName = nullptr;
     }
 
+    // Returns the character 'B' to identify this object as a "Book object"
+    char Book::type() const {
+        return 'B';
+    };
+
     // Write into an ostream object
-
-    std::ostream& Book::write(std::ostream& os) const
-    {
-        char tempName[SDDS_AUTHOR_WIDTH + 1] = { 0 };
-
+    std::ostream& Book::write(std::ostream& os) const {
         Publication::write(os);
-        if (conIO(os))
-        {
-            strnCpy(tempName, authorName, SDDS_AUTHOR_WIDTH);
+        if (conIO(os)) {
+            char author[SDDS_AUTHOR_WIDTH + 1] = { 0 };
+            std::strncpy(author, authorName, SDDS_AUTHOR_WIDTH);
             os << " ";
-            os << setw(SDDS_AUTHOR_WIDTH) << left << setfill(' ') << tempName << " |";
+            os << std::setw(SDDS_AUTHOR_WIDTH) << std::left << std::setfill(' ') << author << " |";
         }
-        else
-        {
+        else {
             os << "\t" << authorName;
         }
 
@@ -88,58 +78,42 @@ namespace sdds
     }
 
     // Read from an istream object.
-    std::istream& Book::read(std::istream& is)
-    {
-        char t_auther[256] = { 0 };
+    std::istream& Book::read(std::istream& is) {
+        char authName[256] = { 0 }; // temporary variable
 
         Publication::read(is);
 
-        if (authorName) 
-        {
+        if (authorName) {
             delete[] authorName;
             authorName = nullptr;
         }
 
-        if (conIO(is)) 
-        {
+        if (conIO(is)) {
             is.ignore(); //ignore '\n'
             std::cout << "Author: ";
         }
-        else 
-        {
-            is.ignore(1000, '\t'); //ignores '\t'
+        else {
+            is.ignore(1000, '\t');
         }
 
-        is.get(t_auther, 256);
+        is.get(authName, 256);
 
-        if (is) 
-        {
-            aloCpy(authorName, t_auther);
-
-           /* authorName = new char[strlen(authName) + 1];
-            strcpy(authorName, authName);*/
+        if (is) {
+            authorName = new char[strlen(authName) + 1];
+            strcpy(authorName, authName);
         }
 
         return is;
     }
 
     // Sets the membership attribute to either zero or a five-digit integer.
-    void Book::set(int member_id) 
-    {
+    void Book::set(int member_id) {
         Publication::set(member_id);
         Publication::resetDate();
     }
 
     // Overloads of this method will return if the Streamable object is in a valid state or not
-    Book::operator bool() const 
-    {
-        bool result = false; 
-
-        if(authorName && Publication::operator bool())
-        {
-                result = true; 
-        }
-
-        return result; 
+    Book::operator bool() const {
+        return authorName && Publication::operator bool();
     }
 }

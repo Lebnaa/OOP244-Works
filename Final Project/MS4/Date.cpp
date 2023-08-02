@@ -11,20 +11,23 @@
 #include <iomanip>
 #include <iostream>
 #include <ctime>
-using namespace std;
 #include "Date.h"
+
+using namespace std;
+
 namespace sdds
 {
-    // Variables
+    // temporary Variables
     bool sdds_test = false;
     int sdds_year = 2023;
     int sdds_mon = 12;
     int sdds_day = 25;
 
+
     bool Date::validate()
     {
         errCode(NO_ERROR);
-        if (m_year < MIN_YEAR || m_year > m_CUR_YEAR + 1)
+        if (m_year < MIN_YEAR || m_year > m_CURYEAR + 1)
         {
             errCode(YEAR_ERROR);
         }
@@ -85,12 +88,12 @@ namespace sdds
         return 365 * ty + ty / 4 - ty / 100 + ty / 400 + (153 * tm - 457) / 5 + m_day - 306;
     }
 
-    Date::Date() : m_CUR_YEAR(systemYear())
+    Date::Date() : m_CURYEAR(systemYear())
     {
         setToToday();
     }
 
-    Date::Date(int year, int mon, int day) : m_CUR_YEAR(systemYear())
+    Date::Date(int year, int mon, int day) : m_CURYEAR(systemYear())
     {
         m_year = year;
         m_mon = mon;
@@ -105,7 +108,7 @@ namespace sdds
 
     int Date::currentYear() const
     {
-        return m_CUR_YEAR;
+        return m_CURYEAR;
     }
 
     void Date::errCode(int readErrorCode)

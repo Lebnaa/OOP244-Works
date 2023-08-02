@@ -1,18 +1,18 @@
-/*****************************************************************************
+/*
+*****************************************************************************
 Lib.h
 Full Name : Lebna Noori
 Student ID# : 157672205
 Email : lnoori1@myseneca.ca
 Date of completion : 18 July 2023
 
-I have done all the coding by myself and only copied the code that my professor 
-provided to complete my workshops and assignments,  with using Fardad's Utils files and.
-* ****************************************************************************/ 
+I have done all the coding by myself and only copied the code that my
+professor provided to complete my workshops and assignments,  with using Fardad's Utils files and.*/
 
 #ifndef SDDS_LIB_H
 #define SDDS_LIB_H
 
-namespace sdds
+namespace sdds 
 {
     const int SDDS_MAX_LOAN_DAYS = 15;
     // maximum number of day a publication can be borrowed with no penalty
@@ -25,5 +25,5 @@ namespace sdds
     const int SDDS_LIBRARY_CAPACITY = 5000;
     // Maximum number of publications the library can hold.
 }
-#endif // !SDDS_LIB_H
 
+#endif //SDDS_LIB_H

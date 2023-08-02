@@ -1,4 +1,5 @@
-/*****************************************************************************
+/*
+*****************************************************************************
 Lib.h
 Full Name : Lebna Noori
 Student ID# : 157672205
@@ -8,6 +9,7 @@ Date of completion : 18 July 2023
 I have done all the coding by myself and only copied the code that my
 professor provided to complete my workshops and assignments,  with using Fardad's Utils files and.*/
 
+
 #ifndef SDDS_PUBLICATION_H
 #define SDDS_PUBLICATION_H
 
@@ -16,9 +18,10 @@ professor provided to complete my workshops and assignments,  with using Fardad'
 #include "Lib.h"
 
 namespace sdds {
-    class Publication : public Streamable {
+    class Publication : public Streamable 
+    {
     private:
-        char* m_title{};
+        char* m_title {};
         char m_shelfId[SDDS_SHELF_ID_LEN + 1]{};
         int m_membership{};
         int m_libRef{};

@@ -1,4 +1,5 @@
-/*****************************************************************************
+/*
+*****************************************************************************
 Lib.h
 Full Name : Lebna Noori
 Student ID# : 157672205
@@ -8,254 +9,224 @@ Date of completion : 18 July 2023
 I have done all the coding by myself and only copied the code that my
 professor provided to complete my workshops and assignments,  with using Fardad's Utils files and.*/
 
+
 #define _CRT_SECURE_NO_WARNINGS
+
+#include "Publication.h"
 #include <iostream>
 #include <iomanip>
-#include "Publication.h"
-#include "Utils.h"
 #include <cstring>
+#include "Utils.h"
 
-using namespace std;
-
-namespace sdds
+namespace sdds 
 {
-	Publication::Publication()
-	{
-		setEmpty();
-	}
+    Publication::Publication() 
+    {
+        setEmpty();
+    }
 
+    // Copying is allowed
+    Publication::Publication(const Publication& publication)
+    {
+        *this = publication;
+    }
 
-	Publication::~Publication()
-	{
-		delete[] m_title;
-		m_title = nullptr;
-	}
+    Publication& Publication::operator=(const Publication& publication) {
+        set(publication.m_membership);
+        setRef(publication.m_libRef);
+        strCpy(m_shelfId, publication.m_shelfId);
+        m_date = publication.m_date;
 
-	// Sets the **libRef** attribute value
-	void Publication::setRef(int value)
-	{
-		m_libRef = value;
-	}
+        if (m_title)
+        {
+            delete[] m_title;
+            m_title = nullptr;
+        }
 
-	//sets to current date 
-	void Publication::resetDate()
-	{
-		m_date = Date();
-	}
+        // Deep Copying
+        if (publication.m_title != nullptr)
+        {
+            /*m_title = new char[strlen(publication.m_title) + 1];
+            strcpy(m_title, publication.m_title);*/
+            reAloCpy(m_title, publication.m_title); 
+        }
+        else {
+            m_title = nullptr;
+        }
 
-	void Publication::setEmpty()
-	{
-		m_title = nullptr;
-		m_shelfId[0] = '\0';
-		m_membership = 0;
-		m_libRef = -1;
-		resetDate();
-	}
+        return *this;
+    }
 
-	// copy constructor copying is allowed 
-	Publication::Publication(const Publication& publication)
-	{
-		*this = publication;
-	}
+    // Destructor
+    Publication::~Publication() 
+    {
+        delete[] m_title;
+    }
 
-	//copy assignment operator copying is allowed. 
-	Publication& Publication::operator=(const Publication& publication)
-	{
-		//setting the variables 
-		set(publication.m_membership);
-		setRef(publication.m_libRef);
-		strCpy(m_shelfId, publication.m_shelfId);
-		m_date = publication.m_date;
-		//reAloCpy(m_title, publication.m_title);
+    // Modifiers / Setters
+    // Sets to default values
+    void Publication::setEmpty() 
+    {
+        m_title = nullptr;
+        m_shelfId[0] = '\0';
+        m_membership = 0;
+        m_libRef = -1;
+        resetDate();
+    }
 
-		if (m_title)
-		{
-			delete[] m_title;
-			m_title = nullptr;
-		}
+    // Sets the membership attribute to either zero or a five-digit integer.
+    void Publication::set(int member_id)
+    {
+        m_membership = member_id;
+    }
 
-		//deep copying 
-		if (publication.m_title != nullptr)
-		{
-			aloCpy(m_title, publication.m_title);
-			/*m_title = new char[strLen(publication.m_title) + 1];
-			strCpy(m_title, publication.m_title);*/
-		}
+    // Sets the **libRef** attribute value
+    void Publication::setRef(int value)
+    {
+        m_libRef = value;
+    }
 
-		return *this;
-	}
+    // Sets the date to the current date of the system.
+    void Publication::resetDate() 
+    {
+        m_date = Date();
+    }
 
-	// Sets the membership attribute to either zero or a five-digit integer.
-	void Publication::set(int member_id)
-	{
-		m_membership = member_id;
-	}
+    // Queries / Getters
+    // Returns the character 'P' to identify this object as a "Publication object"
+    char Publication::type() const 
+    {
+        return 'P';
+    }
 
-	//Returns the character 'P' to identify this object as a "Publication object
-	char Publication::type()const
-	{
-		return 'P';
-	}
+    // Returns true if the publication is checkout (membership is non-zero)
+    bool Publication::onLoan() const 
+    {
+        return (m_membership != 0);
+    }
 
-	bool Publication::onLoan()const
-	{
-		bool result = false;
+    // Returns the date attribute
+    Date Publication::checkoutDate() const 
+    {
+        return m_date;
+    }
 
-		if (m_membership != 0)
-		{
-			result = true;
-		}
+    // Returns true if the argument title appears anywhere in the title of the publication
+    bool Publication::operator==(const char* title) const 
+    {
+        return strstr(m_title, title) != nullptr;
+    }
 
-		return result;
-	}
+    // Returns the title attribute
+    Publication::operator const char* () const
+    {
+        return m_title;
+    }
 
-	Date Publication::checkoutDate()const
-	{
-		return m_date;
-	}
+    // Returns the libRef attribute.
+    int Publication::getRef() const 
+    {
+        return m_libRef;
+    }
 
-	bool Publication::operator==(const char* title)const
-	{
-		return strstr(m_title, title) != nullptr;
-	}
+    // Returns true if the address of the io object is the same as the address of either the cin object or the cout object.
+    bool Publication::conIO(std::ios& io) const 
+    {
+        return &io == &std::cin || &io == &std::cout;
+    }
 
-	Publication::operator const char* () const
-	{
-		return m_title;
-	}
+    // Write into an ostream object
+    std::ostream& Publication::write(std::ostream& os) const 
+    {
+        char title[SDDS_TITLE_WIDTH + 1] = { 0 };
+        std::strncpy(title, m_title, SDDS_TITLE_WIDTH);
 
-	int Publication::getRef()const
-	{
-		return m_libRef;
-	}
+        if (conIO(os)) 
+        {
+            os << "| " << m_shelfId << " | " << std::setw(30) << std::left << std::setfill('.') << title << " | ";
+            (m_membership != 0) ? os << m_membership : os << " N/A ";
+            os << " | " << m_date << " |";
+        }
+        else {
+            os << type();
+            os << "\t" << m_libRef << "\t" << m_shelfId << "\t" << m_title << "\t";
+            (m_membership != 0) ? os << m_membership : os << " N/A ";
+            os << "\t" << m_date;
+        }
 
-	bool Publication::conIO(std::ios& io)const
-	{
-		bool result = false;
+        return os;
+    }
 
-		if (&io == &std::cin || &io == &std::cout)
-		{
-			result = true;
-		}
+    // Read from an istream object.
+    std::istream& Publication::read(std::istream& is) 
+    {
+        // Temporary variables
+        char t_title[256]{}, t_shelfId[SDDS_SHELF_ID_LEN + 1]{};
+        int t_libRef = -1, t_membership = 0;
+        Date t_date;
 
-		return result;
-	}
+        // Clearing the memory if it is allocated and setting the values to default
+        if (m_title) {
+            delete[] m_title;
+            m_title = nullptr;
+        }
+        setEmpty();
 
-	std::ostream& Publication::write(std::ostream& os) const {
+        if (conIO(is)) 
+        {
+            std::cout << "Shelf No: ";
+            is.getline(t_shelfId, SDDS_SHELF_ID_LEN + 1);
 
-		char title[SDDS_TITLE_WIDTH + 1] = { 0 };
-		std::strncpy(title, m_title, SDDS_TITLE_WIDTH);
+            if (strLen(t_shelfId) != SDDS_SHELF_ID_LEN) 
+            {
+                is.setstate(std::ios::failbit);
+            }
 
-		if (conIO(os))
-		{
-			os << "| " << m_shelfId << " | " << std::setw(30) << std::left << std::setfill('.') << m_title << " | ";
-			if (m_membership != 0)
-			{
-				os << m_membership;
-			}
-			else
-			{
-				os << " N/A ";
-			}
-			os << " | " << m_date << " |";
-		}
-		else
-		{
-			os << type() << "\t";
-			os << "\t" << m_libRef << "\t" << m_shelfId << "\t" << m_title << "\t";
-			if (m_membership != 0)
-			{
-				os << m_membership;
-			}
-			else
-			{
-				os << " N/A ";
-			}
-			os << "\t" << m_date;
-		}
+            std::cout << "Title: ";
+            is.getline(t_title, 256);
 
-		return os;
-	}
+            std::cout << "Date: ";
+            is >> t_date;
+        }
 
+        else {
+            is >> t_libRef;
+            is.ignore();
+            is.getline(t_shelfId, SDDS_SHELF_ID_LEN + 1, '\t');
+            is.getline(t_title, 256, '\t');
+            is >> t_membership;
+            is.ignore();
+            is >> t_date;
+        }
 
-	std::istream& Publication::read(std::istream& istr)
-	{
-		// Temporary variables
-		char t_title[256]{},
-			t_shelfId[SDDS_SHELF_ID_LEN + 1]{};
-		int t_libRef = -1, t_membership = 0;
-		Date t_date;
+        if (!t_date)
+        {
+            is.setstate(std::ios::failbit);
+        }
 
-		//freeing the memory and setting everything to their default values.
-		if (m_title)
-		{
-			delete[] m_title;
-			m_title = nullptr;
-		}
+        if (is) 
+        {
+           /* m_title = new char[strlen(t_title) + 1];
+            strcpy(m_title, t_title);*/
+            reAloCpy(m_title, t_title);
+            strCpy(m_shelfId, t_shelfId);
+            m_membership = t_membership;
+            m_date = t_date;
+            m_libRef = t_libRef;
+        }
 
-		setEmpty();
+        return is;
+    }
 
-		if (conIO(istr))
-		{
-			std::cout << "Shelf No: ";
-			//read the shelf number up to its limit (Lib.h).
-			istr.getline(t_shelfId, SDDS_SHELF_ID_LEN + 1);
+    // Overloads of this method will return if the Streamable object is in a valid state or not
+    Publication::operator bool() const 
+    {
+        bool result = false;
+        if (m_title != nullptr && m_shelfId[0] != '\0') 
+        {
+            result = true;
+        }
 
-			//if the number is not exactly the length it is supposed to be
-			if (strLen(t_shelfId) != SDDS_SHELF_ID_LEN)
-			{
-				//set the istr to a fail state manually 
-				istr.setstate(ios::failbit);
-			}
-
-			std::cout << "Title: ";
-			istr.getline(t_title, 256);
-
-			std::cout << "Date: ";
-			istr >> t_date;
-		}
-		else
-		{
-			istr >> t_libRef;
-			istr.ignore();
-			istr.getline(t_shelfId, SDDS_SHELF_ID_LEN + 1, '\t');
-			istr.getline(t_title, 256, '\t');
-			istr >> t_membership;
-			istr.ignore();
-			istr >> t_date;
-		}
-		if (!t_date)
-		{
-			istr.setstate(ios::failbit);
-		}
-		if (istr)
-		{
-
-			/*m_title = new char[strlen(t_title) + 1];
-			strCpy(m_title, t_title);*/
-
-			reAloCpy(m_title, t_title);
-
-			strCpy(m_shelfId, t_shelfId);
-			m_membership = t_membership;
-			m_date = t_date;
-			m_libRef = t_libRef;
-		}
-
-		return istr;
-	}
-
-
-	// Overloads of this method will return if the Streamable object is in a valid state or not
-	Publication::operator bool() const
-	{
-		bool result = false;
-
-		if (m_title != nullptr && m_shelfId[0] != '\0')
-		{
-			result = true;
-		}
-
-		return result;
-	}
+        return result;
+    }
 }

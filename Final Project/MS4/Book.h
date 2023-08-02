@@ -1,12 +1,14 @@
-/*****************************************************************************
-Lib.h
-Full Name : Lebna Noori
-Student ID# : 157672205
-Email : lnoori1@myseneca.ca
-Date of completion : 18 July 2023
+/*
+*****************************************************************************
+                              Book.h
+Full Name  : Aryan Khurana
+Student ID#: 145282216
+Email      : akhurana22@myseneca.ca
+Date of completion    : 20 July 2022
 
-I have done all the coding by myself and only copied the code that my
-professor provided to complete my workshops and assignments,  with using Fardad's Utils files and.*/
+I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
+*****************************************************************************
+*/
 
 #ifndef SDDS_BOOK_H
 #define SDDS_BOOK_H
@@ -16,15 +18,17 @@ professor provided to complete my workshops and assignments,  with using Fardad'
 namespace sdds {
     class Book : public Publication {
     private:
-        char* authorName{};
+        char* authorName;
     public:
-        Book()  = default;
+        Book();
         ~Book();
 
         // Copying is allowed
         Book(const Book& book);
         Book& operator=(const Book& book);
 
+        // Sets book to empty state
+        void setBookEmpty();
 
         // Returns the character 'P' to identify this object as a "Publication object"
         char type() const;
