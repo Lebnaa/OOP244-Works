@@ -31,7 +31,7 @@ namespace sdds
         int m_mon;
         int m_day;
         int m_ErrorCode;
-        int m_CurYear;
+        int m_CUR_YEAR;
         int daysSince0001_1_1() const; // returns number of days passed since the date 0001/1/1
         bool validate();               /* validates the date setting the error code and then returning the result
                                         true, if valid, and false if invalid.*/

@@ -1,133 +1,135 @@
-/*****************************************************************************
-Lib.h
-Full Name : Lebna Noori
-Student ID# : 157672205
-Email : lnoori1@myseneca.ca
-Date of completion : 18 July 2023
+/*
+*****************************************************************************
+                              Book.cpp
+Full Name  : Aryan Khurana
+Student ID#: 145282216
+Email      : akhurana22@myseneca.ca
+Date of completion    : 20 July 2022
 
-I have done all the coding by myself and only copied the code that my
-professor provided to complete my workshops and assignments,  with using Fardad's Utils files and.*/
+I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
+*****************************************************************************
+*/
 #define _CRT_SECURE_NO_WARNINGS
-
+#include "Book.h"
 #include <iostream>
 #include <cstring>
 #include <iomanip>
 
-#include "Book.h"
-
-using namespace std; 
-
-namespace sdds
+namespace sdds 
 {
-        Book::~Book()
+
+    Book::~Book() {
+        delete[] authorName;
+        authorName = nullptr; 
+    }
+
+    // Copying is allowed
+    Book::Book(const Book& book) : Publication(book)
+    {
+        if (authorName)
         {
-            delete[] AuthorName;
-            AuthorName = nullptr; 
+            delete[] authorName;
+            authorName = nullptr;
         }
 
-        Book::Book(const Book& book) : Publication(book)
+        authorName = new char[strlen(book.authorName) + 1];
+        strcpy(authorName, book.authorName);
+    }
+
+    Book& Book::operator=(const Book& book) 
+    {
+        Publication::operator=(book);
+
+        if (authorName)
         {
-            if (AuthorName)
-            {
-                delete[] AuthorName;
-                AuthorName = nullptr;
-            }
-            AuthorName = new char[strlen(book.AuthorName) + 1];
-            strcpy(AuthorName, book.AuthorName);
-        }
-        
-
-        Book& Book::operator=(const Book& book)
-        {
-            if (this != &book)
-            {
-
-                Publication::operator=(book);
-                delete[] AuthorName;
-                AuthorName = nullptr; 
-
-                if (book.AuthorName)
-                {
-                    AuthorName = new char[strlen(book.AuthorName) + 1];
-                    strcpy(AuthorName, book.AuthorName);
-                }
-            }
-            return *this;
+            delete[] authorName;
+            authorName = nullptr;
         }
 
-
-        char Book::type() const
+        if (book.authorName) 
         {
-            return 'B';
+            authorName = new char[strlen(book.authorName) + 1];
+            strcpy(authorName, book.authorName);
         }
 
+        return *this;
+    }
 
-        std::ostream& Book::write(std::ostream& os) const
+    // Returns the character 'B' to identify this object as a "Book object"
+    char Book::type() const 
+    {
+        return 'B';
+    }
+
+    // Write into an ostream object
+    std::ostream& Book::write(std::ostream& os) const 
+    {
+        Publication::write(os);
+
+        if (conIO(os))
         {
-            char t_Name[SDDS_AUTHOR_WIDTH + 1] = { 0 };
-
-            Publication::write(os);
-            if (conIO(os))
-            {
-                strncpy(t_Name, AuthorName, SDDS_AUTHOR_WIDTH);
-                os << " ";
-                os << std::setw(SDDS_AUTHOR_WIDTH) << std::left << std::setfill(' ') << t_Name << " |";
-            }
-            else
-            {
-                os << "\t" << AuthorName;
-            }
-
-            return os;
+            char author[SDDS_AUTHOR_WIDTH + 1] = { 0 };
+            std::strncpy(author, authorName, SDDS_AUTHOR_WIDTH);
+            os << " ";
+            os << std::setw(SDDS_AUTHOR_WIDTH) << std::left << std::setfill(' ') << author << " |";
         }
-        std::istream& Book::read(std::istream& is)
-        {
-            char t_Name[256] = { 0 };
-
-            Publication::read(is);
-
-            if (AuthorName)
-            {
-                delete[] AuthorName;
-                AuthorName = nullptr;
-            }
-
-            if (conIO(is))
-            {
-                is.ignore();
-                std::cout << "Author: ";
-            }
-            else
-            {
-                is.ignore(1000, '\t');
-            }
-
-            is.get(t_Name, 256);
-
-            if (is)
-            {
-                AuthorName = new char[strlen(t_Name) + 1];
-                strcpy(AuthorName, t_Name);
-            }
-
-            return is;
-
+        else {
+            os << "\t" << authorName;
         }
 
-        void Book::set(int member_id)
+        return os;
+    }
+
+    // Read from an istream object.
+    std::istream& Book::read(std::istream& is)
+    {
+        char authName[256] = { 0 };
+
+        Publication::read(is);
+
+        if (authorName) 
         {
-            Publication::set(member_id);
-            Publication::resetDate();
+            delete[] authorName;
+            authorName = nullptr;
         }
 
-        Book::operator bool() const
+        if (conIO(is)) 
         {
-            bool result = false;
-            if (AuthorName && Publication::operator bool())
-            {
-                result = true;
-            }
-            return result;
-
+            is.ignore(); //ignore '\n'
+            std::cout << "Author: ";
         }
+        else 
+        {
+            is.ignore(1000, '\t'); //ignores '\t'
+        }
+
+        is.get(authName, 256);
+
+        if (is) {
+            authorName = new char[strlen(authName) + 1];
+            strcpy(authorName, authName);
+        }
+
+        return is;
+    }
+
+    // Sets the membership attribute to either zero or a five-digit integer.
+    void Book::set(int member_id) 
+    {
+        Publication::set(member_id);
+        Publication::resetDate();
+    }
+
+    // Overloads of this method will return if the Streamable object is in a valid state or not
+    Book::operator bool() const 
+    {
+        bool result = false; 
+
+        if(authorName && Publication::operator bool())
+        {
+                result = true; 
+        }
+
+        return result; 
+    }
 }

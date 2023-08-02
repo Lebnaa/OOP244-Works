@@ -141,6 +141,10 @@ namespace sdds
 	}
 
 	std::ostream& Publication::write(std::ostream& os) const {
+
+		char title[SDDS_TITLE_WIDTH + 1] = { 0 };
+		std::strncpy(title, m_title, SDDS_TITLE_WIDTH);
+
 		if (conIO(os))
 		{
 			os << "| " << m_shelfId << " | " << std::setw(30) << std::left << std::setfill('.') << m_title << " | ";
@@ -176,7 +180,7 @@ namespace sdds
 	std::istream& Publication::read(std::istream& istr)
 	{
 		// Temporary variables
-		char t_title[SDDS_TITLE_WIDTH + 1]{},
+		char t_title[256]{},
 			t_shelfId[SDDS_SHELF_ID_LEN + 1]{};
 		int t_libRef = -1, t_membership = 0;
 		Date t_date;
@@ -188,7 +192,6 @@ namespace sdds
 			m_title = nullptr;
 		}
 
-		strCpy(m_shelfId, "");
 		setEmpty();
 
 		if (conIO(istr))
@@ -205,7 +208,7 @@ namespace sdds
 			}
 
 			std::cout << "Title: ";
-			istr.getline(t_title, SDDS_TITLE_WIDTH + 1);
+			istr.getline(t_title, 256);
 
 			std::cout << "Date: ";
 			istr >> t_date;
@@ -215,7 +218,7 @@ namespace sdds
 			istr >> t_libRef;
 			istr.ignore();
 			istr.getline(t_shelfId, SDDS_SHELF_ID_LEN + 1, '\t');
-			istr.getline(t_title, SDDS_TITLE_WIDTH + 1, '\t');
+			istr.getline(t_title, 256, '\t');
 			istr >> t_membership;
 			istr.ignore();
 			istr >> t_date;
