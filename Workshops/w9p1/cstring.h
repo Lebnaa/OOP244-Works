@@ -1,26 +1,21 @@
-/***********************************************************************
-// OOP244 Utils Module
-// File	Utils.h
-// Version
-// Date
-// Author
-// Description
-//
-// Revision History
-// -----------------------------------------------------------
-// Name            Date            Reason
-// Lebna            July 7th/2023       Project Completion
-/////////////////////////////////////////////////////////////////
-***********************************************************************/
-#ifndef SDDS_UTILS_H__
-#define SDDS_UTILS_H__
+/*
+*****************************************************************************
+							  Workshop - #9 (Part-1)
+Full Name  : Lebna Noori
+Student ID#: 157672205
+Email      : lnoori1@myseneca.ca
+Section    : NAA
 
-namespace sdds {
-
-	// Gets an integer as input and validates the range as well. It prints a message if the range isn't valid and prompts again
-	int getIntegerInput(int minRange, int maxRange);
-
-	bool alloCopy(char*& des, const char* str);
+Authenticity Declaration:
+I declare this submission is the result of my own work and has not been
+shared with any other student or 3rd party content provider. This submitted
+piece of work is entirely of my own creation.
+*****************************************************************************/
+#pragma once
+#ifndef SDDS_CSTRING_H
+#define SDDS_CSTRING_H
+namespace sdds
+{
 
 	/// <summary>
 	/// Copies the source character string into the destination
@@ -65,8 +60,7 @@ namespace sdds {
 	/// </summary>
 	/// <param name="s"> string </param>
 	/// <returns> the length of the C-string in characters </returns>
-	int strLen(const char* s);
-
+	int strLen(const char* str);
 	/// <summary>
 	/// Find the address of first occurance of "str2" in "str1"
 	/// </summary>
@@ -83,7 +77,8 @@ namespace sdds {
 	/// <param name="src"> Source String </param>
 	void strCat(char* des, const char* src);
 
-
+	void reAloCpy(char*& des, const char* src);
+	void aloCpy(char*& des, const char* src);
 }
-#endif // SDDS_UTILS_H__
 
+#endif // !SDDS_UTILS_H
