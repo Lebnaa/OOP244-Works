@@ -95,7 +95,7 @@ namespace sdds {
 	}
 
 
-	LibApp::LibApp()
+	LibApp::LibApp(const char* filename)
 	{
 		m_mainMenu << "Add New Publication" 
 			<< "Remove Publication"
@@ -164,4 +164,12 @@ namespace sdds {
 		cout << "Thanks for using Seneca Library Application" << endl;
 	}
 
+	// LibApp Destructor
+	LibApp::~LibApp()
+	{
+		for (int i = 0; i < m_NOLP; i++)
+		{
+			delete m_PPA[i];
+		}
+	}
 }

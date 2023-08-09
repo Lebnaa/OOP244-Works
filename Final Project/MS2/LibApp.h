@@ -16,12 +16,23 @@ piece of work is entirely of my own creation.
 
 #include <iostream>
 #include "Menu.h"
+#include "Publication.h"
+#include "Lib.h"
 
 namespace sdds {
     class LibApp {
         bool m_changed{ false };
         Menu m_mainMenu{ "Seneca Library Application\n" };
         Menu m_exitMenu{ "Changes have been made to the data, what would you like to do?\n" };
+        
+        //ms5 
+        char m_filename[256]; 
+        Publication* m_PPA[SDDS_LIBRARY_CAPACITY]; 
+        int m_NOLP; 
+        int m_LLRN; 
+        Menu m_menuType{ "Choose the type of publication:" }; //menu type 
+
+        //not new 
         bool confirm(const char* message);
         void load();  // prints: "Loading Data"<NEWLINE>
         void save();  // prints: "Saving Data"<NEWLINE>
@@ -37,9 +48,10 @@ namespace sdds {
         void checkOutPub();
 
     public:
-        LibApp();
+        LibApp(const char* filenamw);
 
         void run();
+        ~LibApp(); 
     }; 
 }
 #endif // !SDDS_LIBAPP_H

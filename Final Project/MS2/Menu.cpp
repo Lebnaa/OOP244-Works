@@ -1,17 +1,13 @@
-/***********************************************************************
-// OOP244 Utils Module
-// File	Utils.cpp
-// Version 1.0
-// Date		July 7th/2023
-// Author	Lebna Noori
-// Description   Completing Utils.cpp
-//
-// Revision History
-// -----------------------------------------------------------
-// Name            Date            Reason
-// Lebna            July 7th/2023       Project Completion
-/////////////////////////////////////////////////////////////////
-***********************************************************************/
+/*****************************************************************************
+Lib.h
+Full Name : Lebna Noori
+Student ID# : 157672205
+Email : lnoori1@myseneca.ca
+Date of completion : 18 July 2023
+
+I have done all the coding by myself and only copied the code that my
+professor provided to complete my workshops and assignments,  with using Fardad's Utils files and.*/
+
 #define _CRT_SECURE_NO_WARNINGS
 #include "Menu.h"
 #include "Utils.h"

@@ -11,12 +11,12 @@ professor provided to complete my workshops and assignments,  with using Fardad'
 
 
 #define _CRT_SECURE_NO_WARNINGS
-
-#include "Publication.h"
 #include <iostream>
 #include <iomanip>
 #include <cstring>
 #include "Utils.h"
+#include "Publication.h"
+
 
 namespace sdds 
 {
