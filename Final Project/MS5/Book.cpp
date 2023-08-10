@@ -7,12 +7,12 @@ Date of completion : 18 July 2023
 
 I have done all the coding by myself and only copied the code that my
 professor provided to complete my workshops and assignments,  with using Fardad's Utils files and.*/
-
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <iomanip>
 #include <cstring>
 #include "Book.h"
+#include "Utils.h"
 
 
 using namespace std;
@@ -28,29 +28,30 @@ namespace sdds
         delete[] author;
     }
 
-    Book::Book(const Book& bk) : Publication(bk)
+    Book::Book(const Book& book) : Publication(book)
     {
         if (author)
         {
             delete[]author;
             author = nullptr;
         }
-        author = new char[strlen(bk.author) + 1];
-        strcpy(author, bk.author);
+        aloCpy(author, book.author); 
+        /*author = new char[strlen(bk.author) + 1];
+        strcpy(author, bk.author);*/
     }
 
-    Book& Book::operator=(const Book& bk)
+    Book& Book::operator=(const Book& book)
     {
-        Publication::operator=(bk);
+        Publication::operator=(book);
         if (author)
         {
             delete[]author;
             author = nullptr;
         }
-        if (bk.author)
+        if (book.author)
         {
-            author = new char[strlen(bk.author) + 1];
-            strcpy(author, bk.author);
+            author = new char[strlen(book.author) + 1];
+            strcpy(author, book.author);
         }
 
         return *this;

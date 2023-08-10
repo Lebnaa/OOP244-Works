@@ -138,12 +138,12 @@
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\MS2\Menu.cpp" />
-    <ClCompile Include="..\MS4\Publication.cpp" />
     <ClCompile Include="Book.cpp" />
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="LibApp.cpp" />
     <ClCompile Include="LibAppMain.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Publication.cpp" />
     <ClCompile Include="PublicationSelector.cpp" />
     <ClCompile Include="Streamable.cpp" />
     <ClCompile Include="Utils.cpp" />

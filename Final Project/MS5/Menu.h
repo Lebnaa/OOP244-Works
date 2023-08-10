@@ -8,81 +8,72 @@ Date of completion : 18 July 2023
 I have done all the coding by myself and only copied the code that my
 professor provided to complete my workshops and assignments,  with using Fardad's Utils files and.*/
 
-#ifndef SDDS_MENU_H__
-#define SDDS_MENU_H__
-
-#define MAX_MENU_ITEMS 20 
-
-#include <iostream>
-
+#ifndef MENU_H
+#define MENU_H
 namespace sdds {
+    const unsigned int MAX_MENU_ITEMS = 20;
 
-	class MenuItem {
-	private:
-		char* menuContent{};
-
-		MenuItem();
-		MenuItem(const char* text);
-		~MenuItem();
+    class Menu;// declare this forward since it has full control over menuItem objects
 
 
-		//copy constructors but NO COPYING ALLOWED
-		MenuItem(const MenuItem& menuItem) = delete;
-		void operator = (const MenuItem& menu_Item) = delete;
+    class MenuItem {
 
-		operator bool() const;
 
-		operator const char* () const;
 
-		std::ostream& display(std::ostream& os = std::cout);
+        char* m_menuContent;
 
-		friend class Menu;
+        MenuItem();
+        MenuItem(const char* menuInit);
+        ~MenuItem();
 
-	};
 
-	class Menu {
-	private:
-		MenuItem menutitle{};
-		MenuItem* menuItems[MAX_MENU_ITEMS]{};
-		unsigned int ptrCount = 0;
-	public:
-		Menu();
-		Menu(const char* title);
-		~Menu();
+        //ban copy assignment and copy constructor
+        MenuItem(const MenuItem& copyConstructor) = delete;
+        void operator=(const MenuItem& copyAssignment) = delete;
+        //destructor
+        operator const char* () const;
+        operator bool() const;
 
-		//copy constructor but copying not allowed
-		Menu(const Menu& menu) = delete;
-		void operator = (const Menu& menuItem) = delete;
+        std::ostream& display(std::ostream& os = std::cout); // to call display later in the code
 
-		// Function to display the title of the menu
-		std::ostream& displayMenuTitle(std::ostream& os);
 
-		//display the content of the menu 
-		std::ostream& displayMenu(std::ostream& os = std::cout);
+        friend class Menu;
 
-		//reutrns the num of menuitems on menu 
-		operator int();
 
-		//Return the number of MenuItems on the Menu.
-		operator unsigned int();
+    };
+    class Menu {
 
-		//eturn true if the Menu has one or more MenuItems otherwise, false;
-		operator bool();
+        MenuItem m_menuTitle{};
+        MenuItem* m_menuItems[MAX_MENU_ITEMS];
+        unsigned int m_numItems = 0;
+    public:
 
-		//display menu and gets user selection 
-		int run();
+        Menu();
+        ~Menu();
+        Menu(const char* title);
 
-		//does what we want the function to do. 
-		int operator~();
+        Menu(const Menu& M) = delete;
+        void operator=(const Menu& M) = delete;
 
-		Menu& operator<<(const char* menuitemConent);
 
-		//If the index passes the number of MenuItems in the Menu, 
-		//loop back to the beginning
-		const char* operator[] (unsigned int index) const;
+        std::ostream& displayTitle(std::ostream& os);
+        std::ostream& displayMenu(std::ostream& os = std::cout);
 
-	};
+        unsigned int run(); //use unsigned for validation
 
-	std::ostream& operator<<(std::ostream& os, Menu& menu);
+        int operator~();
+
+        Menu& operator<<(const char* menuItemContent);
+
+        operator int() const;
+        operator unsigned int() const;
+        operator bool() const;
+        const char* operator[](unsigned int index) const; //mdulus
+
+    };
+
+    std::ostream& operator<<(std::ostream& os, Menu& menu);
+
 }
-#endif // SDDS_UTILS_H__
+
+#endif

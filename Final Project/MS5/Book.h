@@ -8,7 +8,6 @@ Date of completion : 18 July 2023
 I have done all the coding by myself and only copied the code that my
 professor provided to complete my workshops and assignments,  with using Fardad's Utils files and.*/
 
-#pragma once
 #ifndef SDDS_BOOK_H__
 #define SDDS_BOOK_H__
 #include <iostream>
@@ -44,4 +43,4 @@ namespace sdds
 
     };
 }
-#endif
+#endif 

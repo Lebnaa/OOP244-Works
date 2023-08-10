@@ -35,8 +35,7 @@ namespace sdds {
         Menu m_mainMenu{ "Seneca Library Application" };
         Menu m_exitMenu{ "Changes have been made to the data, what would you like to do?" };
 
-
-        //previous milestone 
+        //previous milestone implementation
         bool confirm(const char* message);
         void load();  // prints: "Loading Data"<NEWLINE>
         void save();  // prints: "Saving Data"<NEWLINE>

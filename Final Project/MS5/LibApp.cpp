@@ -14,21 +14,19 @@ professor provided to complete my workshops and assignments,  with using Fardad'
 #include "LibApp.h"
 #include "Utils.h"
 
-
 #include "PublicationSelector.h"
-//#include <cstring>
+#include <cstring>
 #include <ctime>
 #include <fstream>
-#include <string>
+#include "string"
 
 using namespace std;
 
+namespace sdds 
+{
 
-namespace sdds {
-
-    //checked it looks good
-    LibApp::LibApp() {
-
+    LibApp::LibApp() 
+    {
         m_filename[0] = '\0';
         m_changed = false;
         m_NOLP = 0;
@@ -40,7 +38,8 @@ namespace sdds {
 
         load();
     }
-    // checked if it looks good
+
+
     LibApp::LibApp(const char* filename) 
     {
         if (filename)
@@ -64,8 +63,7 @@ namespace sdds {
     }
 
 
-    LibApp::~LibApp() 
-    {
+    LibApp::~LibApp() {
         int i = 0;
         for (i = 0; i < SDDS_LIBRARY_CAPACITY; i++)
         {
@@ -75,9 +73,9 @@ namespace sdds {
 
 
 
-    //previous milestone
-    bool LibApp::confirm(const char* message)
-    {
+
+    //already implemented
+    bool LibApp::confirm(const char* message) {
         bool check = false;
         int value = 0;
         Menu menu(message);
@@ -97,22 +95,22 @@ namespace sdds {
 
     void LibApp::load() {
 
-        char temp;
+        char t_Char;
         ifstream loadFile(m_filename);
 
 
         cout << "Loading Data" << endl;
 
-        while (loadFile >> temp)
+        while (loadFile >> t_Char)
         {
-            if (temp == 'P')
+            if (t_Char == 'P')
             {
                 m_PPA[m_NOLP] = new Publication;
                 loadFile >> *m_PPA[m_NOLP];
                 m_LLRN = m_PPA[m_NOLP]->getRef();
                 m_NOLP++;
             }
-            else if (temp == 'B')
+            else if (t_Char == 'B')
             {
                 m_PPA[m_NOLP] = new Book;
                 loadFile >> *m_PPA[m_NOLP];
@@ -121,6 +119,7 @@ namespace sdds {
             }
         }
     }
+
 
 
     void LibApp::save() {
@@ -168,7 +167,6 @@ namespace sdds {
             pubType = 'P';
         }
 
-
         if (pubSelect > 0)
         {
             cout << "Publication Title: ";
@@ -181,7 +179,7 @@ namespace sdds {
             {
                 if (m_PPA[i]->type() == pubType)
                 {
-                    if (strStr(static_cast<const char*>(*m_PPA[i]), titleFilter.c_str()))
+                    if (strstr(static_cast<const char*>(*m_PPA[i]), titleFilter.c_str()))
                     {
                         if (method == 0)
                         {
@@ -234,8 +232,7 @@ namespace sdds {
     }
 
 
-    Publication* LibApp::getPub(int libRef) 
-    {
+    Publication* LibApp::getPub(int libRef) {
 
         int i = 0;
         Publication* pub = nullptr;
@@ -291,7 +288,8 @@ namespace sdds {
         cout << endl;
     }
 
-    void LibApp::newPublication() {
+    void LibApp::newPublication() 
+    {
         bool confirmation = false;
         int tempPubType = 0;
 
@@ -308,23 +306,19 @@ namespace sdds {
                 if (cin >> *m_PPA[m_NOLP])
                 {
                     confirmation = confirm("Add this publication to the library?");
-
                 }
                 else
                 {
                     cout << "Aborted!" << endl;
                 }
-
             }
             else if (tempPubType == 2)
             {
                 m_PPA[m_NOLP] = new Publication;
 
-
                 if (cin >> *m_PPA[m_NOLP])
                 {
                     confirmation = confirm("Add this publication to the library?");
-
                 }
                 else
                 {
@@ -353,28 +347,26 @@ namespace sdds {
                 m_PPA[m_NOLP] = nullptr;
                 cout << endl;
             }
-
-
         }
         else if (m_NOLP == SDDS_LIBRARY_CAPACITY)
         {
-            cout << "Library is at its maximum capacity!" << endl;
-            confirmation = true;
+            cout << "Library is at its maximum capacity!" << endl << endl;
         }
-        cout << endl;
     }
 
-
-    // Function to remove a publication from the library
     void LibApp::removePublication()
     {
+        int libRef = 0;
+        bool confirmation = false;
         cout << "Removing publication from the library" << endl;
-        int libref = search(1);
-        if (libref)
+        libRef = search(0);
+
+        if (libRef)
         {
-            if (confirm("Remove this publication from the library?"))
+            confirmation = confirm("Remove this publication from the library?");
+            if (confirmation)
             {
-                getPub(libref)->setRef(0);
+                getPub(libRef)->setRef(0);
                 m_changed = true;
                 cout << "Publication removed" << endl;
             }
@@ -382,41 +374,35 @@ namespace sdds {
         cout << endl;
     }
 
-    // Function to checkout a publication from the library
-    void LibApp::checkOutPub()
+    void LibApp::checkOutPub() 
     {
+        int libRef = 0;
+        int tempMembership = 0;
+        bool confirmation = false;
+
         cout << "Checkout publication from the library" << endl;
 
-        //passes arg of 3 to search for publication
-        int libref = search(3);
-        if (libref)
+        libRef = search(1);
+
+        if (libRef > 0)
         {
-            if (confirm("Check out publication?"))
+            confirmation = confirm("Check out publication?");
+            if (confirmation)
             {
                 cout << "Enter Membership number: ";
-                int memberId = 0;
-                bool result = false;
+                tempMembership = getUserInput(10000, 99999, "Invalid membership number, try again: ");
+                getPub(libRef)->set(tempMembership);
 
-                while (!result)
-                {
-                    cin >> memberId;
-                    if (!cin || memberId < 10000 || memberId > 99999) {
-                        cout << "Invalid membership number, try again: ";
-                        cin.clear();
-                        cin.ignore(3000, '\n');
-                    }
-                    else
-                    {
-                        result = true;
-                    }
-                } 
+                m_changed = true;
+
                 cout << "Publication checked out" << endl;
             }
         }
         cout << endl;
     }
 
-    void LibApp::run() {
+    void LibApp::run() 
+    {
         int menuInput = 0;
         int exitInput = 0;
 
@@ -444,9 +430,7 @@ namespace sdds {
                         menuInput = 1;
                     }
                 }
-
                 cout << endl;
-
             }
             else if (menuInput == 1)
             {
@@ -456,7 +440,6 @@ namespace sdds {
             {
                 removePublication();
             }
-
             else if (menuInput == 3) {
                 checkOutPub();
             }

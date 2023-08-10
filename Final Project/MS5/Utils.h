@@ -12,6 +12,15 @@ professor provided to complete my workshops and assignments,  with using Fardad'
 #define SDDS_UTILS_H
 namespace sdds
 {
+	/// <summary>
+	/// prints the message after the userinput 
+	/// </summary>
+	/// <param name="minRange"></param>
+	/// <param name="maxRange"></param>
+	/// <returns></returns>
+	int getIntegerInput(int minRange, int maxRange); 
+
+	int getUserInput(int min, int max, const char* message); 
 
 	/// <summary>
 	/// Copies the source character string into the destination

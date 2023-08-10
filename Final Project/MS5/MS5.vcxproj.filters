@@ -44,13 +44,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\MS4\Publication.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PublicationSelector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\MS2\Menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Book.cpp">
@@ -69,6 +63,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LibAppMain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Publication.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

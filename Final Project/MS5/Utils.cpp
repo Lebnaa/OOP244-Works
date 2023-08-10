@@ -40,6 +40,28 @@ namespace sdds
         return input;
     }
 
+    int getUserInput(int min, int max, const char* message)
+    {
+        int input = 0;
+        bool check = false;
+        while (check == false)
+        {
+            cin >> input;
+            if (!cin || input < min || input > max)
+            {
+                cout << message;
+                cin.clear();
+                cin.ignore(1000, '\n');
+                check = false;
+            }
+            else
+            {
+                check = true;
+            }
+
+        }
+        return input;
+    }
 
     void strCpy(char* des, const char* src) {
         int i;
