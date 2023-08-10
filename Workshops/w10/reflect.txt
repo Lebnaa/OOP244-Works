@@ -1,0 +1,13 @@
+Full Name : Lebna Noori
+Student ID# : 157672205
+Email : lnoori1@myseneca.ca
+Date of completion : 18 July 2023
+
+
+Reflections: 
+- I was able to learn more about templates throughout this class. I believe that Template is the hardest thing I've ever had to learn so far in the semester. However, I put a lot of effort into my preparation for this session, and I was able to implement what I learned there.I implemented two template functions in total. ListArray Elements (const char *_title, const T *_arr, int_num) is the first template function.  This template function was passed to the format "ListArray Elements" ("All the cars:", C, 7);" by main.cpp in order to be used. This function accepts a variety of array types, titles, and array quantities and prints them to the console. Instead of utilizing just one type of array, I can enter different types of arrays. 
+
+he operator "<<" function of ReadWrite, which is an abstract base class, is called inside the function first. This is because Car, Employee and Student class are inherited from ReadWrite class. And then determines what the real object is and finally calls the display() function of the corresponding object.
+	The second implementation of the template function is "bool search (Collection  &_obj, const T1 *_arr, int_num, T2_key). And I passed it using the form of "search (Cres, C, (sizeof(C) / sizeof(C[0]), "Tesla")" in main. First, Collection is a template class. What is more surprising is that the Collection template class receives a Car or Student or Employee class as a type. Therefore, the collection and array use the same type name. 
+
+	In conclusion, using templates has the advantage of being able to use various types freely in functions or classes. However, one more lesson is that when multiple types of classes are implemented as a function of a template, the abstract base class is first implemented, then inherited as multiple types of classes, and finally implemented. Also, the template is difficult to debug because the type is determined during the compilation phase. Therefore, you have to make the code carefully when you first make it. As there are such difficulties, I was able to learn from those difficulties through this workshop and use the advantages of templates.

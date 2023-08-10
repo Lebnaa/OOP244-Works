@@ -34,10 +34,13 @@ namespace sdds {
         if (m_size <= 0) m_size = 0;
         if (m_size > 0) m_data = new T[m_size];
     }
+
+    //DONT UNDRESTAND 
     template <typename T>
     Collection<T>::Collection(const Collection<T>& CP) {
         operator=(CP);
     }
+
     template <typename T>
     Collection<T>& Collection<T>::operator=(const Collection<T>& RO) {
         if (this != &RO) {
@@ -75,11 +78,14 @@ namespace sdds {
         return m_data[index];
     }
 
+
+    //set the object to to e
     template <typename T>
     Collection<T>& Collection<T>::add(const T& element) {
         (*this)[size()] = element;
         return *this;
     }
+
     template <typename T>
     Collection<T>::~Collection() {
         delete[] m_data;

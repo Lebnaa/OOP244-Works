@@ -56,12 +56,12 @@ namespace sdds
     
   
     /// <summary>
-    ///  operator << must be defined 
-    //The list array elements function recieves different types of arrays.
-    //Since there are multiple types of arrays to be recieved and work with
-    //our template function. Using our abstract class, we use the insert operator
-    //deifned in ReadWrite to acess our Car/Employee/Student classes since the
-    //classes we work in all inherit from ReadWrite.
+    /// operator << must be defined 
+    /// The list array elements function recieves different types of arrays.
+    /// Since there are multiple types of arrays to be recieved and work with
+    /// our template function. Using our abstract class, we use the insert operator
+    /// deifned in ReadWrite to acess our Car/Employee/Student classes since the
+    /// classes we work in all inherit from ReadWrite.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="title"></param>
